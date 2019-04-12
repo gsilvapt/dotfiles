@@ -1,0 +1,17 @@
+[user]
+	email = gustavo.silva@codigree.com
+	name = Gustavo Silva
+	signingkey = 09E2C9C5797A49D1
+[core]
+	editor = vim
+[gui]
+	editor = vim
+	historybrowser = gitk
+[diff]
+	tool = xxdiff
+[merge]
+	tool = xxdiff
+[url "git@gitlab.com:"]
+	insteadOf = https://gitlab.com/
+[commit]
+	gpgsign = true
