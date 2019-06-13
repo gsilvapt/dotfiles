@@ -3,7 +3,7 @@
 ## APT Packages
 echo "[SCRIPT] Update and Install APT packages"
 sudo apt update && sudo apt upgrade -y
-sudo apt install git zsh htop terminator flameshot fonts-font-awesome vim  fonts-firacode
+sudo apt install git zsh htop terminator flameshot fonts-font-awesome vim  fonts-firacode tmux
 
 echo "[SCRIPT] Install Gogh Themes for Ubuntu Terminal"
 read -p "Papercolor Light || Press enter to continue"
@@ -20,6 +20,7 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
 echo "[SCRIPT] Moving config files before installing things"
+cp .tmux.conf ~/.tmux.conf
 cp .vimrc ~/.vimrc
 cp .zshrc ~/.zshrc
 cp .gitconfig ~/.config
@@ -33,3 +34,7 @@ sudo dpkg -i | wget https://code.visualstudio.com/docs/?dv=linux64_deb
 
 echo "[SCRIPT] Installing ZSH and moving zsh config."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+echo "[SCRIPT] Starting Tmux and running plugin installation"
+read -p "After entering tmux, press prefix + I to install everything. Now press enter to continue"
+tmux source ~/.tmux.conf
