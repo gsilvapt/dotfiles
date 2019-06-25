@@ -3,7 +3,7 @@
 ## APT Packages
 echo "[SCRIPT] Update and Install APT packages"
 sudo apt update && sudo apt upgrade -y
-sudo apt install git zsh htop terminator flameshot fonts-font-awesome vim  fonts-firacode tmux
+sudo apt install git zsh htop flameshot fonts-font-awesome vim  fonts-firacode tmux
 
 echo "[SCRIPT] Install Gogh Themes for Ubuntu Terminal"
 read -p "Papercolor Light || Press enter to continue"
@@ -11,8 +11,9 @@ bash -c  "$(wget -qO- https://git.io/vQgMr)"
 
 ## Snaps 
 echo "[SCRIPT] Installing snaps"
-sudo snap install spotify --classic
-sudo snap install postman
+snap install spotify --classic
+snap install slack --classic
+snap install postman
 
 ## FZF
 echo "[SCRIPT] Installing FZF"
@@ -32,8 +33,10 @@ vim +PluginInstall +qall
 echo "[SCRIPT] Install Code Editors - [VSCode]"
 sudo dpkg -i | wget https://code.visualstudio.com/docs/?dv=linux64_deb
 
-echo "[SCRIPT] Installing ZSH and moving zsh config."
+echo "[SCRIPT] Installing ZSH and desired plugins."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 echo "[SCRIPT] Starting Tmux and running plugin installation"
 read -p "After entering tmux, press prefix + I to install everything. Now press enter to continue"
