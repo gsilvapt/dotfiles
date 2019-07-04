@@ -26,6 +26,9 @@ cp .vimrc ~/.vimrc
 cp .zshrc ~/.zshrc
 cp .gitconfig ~/.config
 
+echo "[SCIRPT] Prepare Nano for all environments"
+find /usr/share/nano/ -iname "*.nanorc" -exec echo include {} \; >> ~/.nanorc
+
 echo "[SCRIPT] Installing Vim Vundle and custom Plugins"
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
@@ -40,4 +43,4 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 
 echo "[SCRIPT] Starting Tmux and running plugin installation"
 read -p "After entering tmux, press prefix + I to install everything. Now press enter to continue"
-tmux source ~/.tmux.conf
+tmux source ~/.tmux.conf 
