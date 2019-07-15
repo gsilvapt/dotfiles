@@ -6,7 +6,7 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install git zsh htop flameshot fonts-font-awesome vim  fonts-firacode tmux
 
 echo "[SCRIPT] Install Gogh Themes for Ubuntu Terminal"
-read -p "Papercolor Light || Press enter to continue"
+read -p "Install SPACEGRAY || Press enter to continue"
 bash -c  "$(wget -qO- https://git.io/vQgMr)"
 
 ## Snaps 
@@ -24,7 +24,7 @@ echo "[SCRIPT] Moving config files before installing things"
 cp .tmux.conf ~/.tmux.conf
 cp .vimrc ~/.vimrc
 cp .zshrc ~/.zshrc
-cp .gitconfig ~/.config
+cp .gitconfig ~/.gitconfig
 
 echo "[SCIRPT] Prepare Nano for all environments"
 find /usr/share/nano/ -iname "*.nanorc" -exec echo include {} \; >> ~/.nanorc
@@ -33,7 +33,7 @@ echo "[SCRIPT] Installing Vim Vundle and custom Plugins"
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
 
-echo "[SCRIPT] Install Code Editors - [VSCode]"
+echo "[SCRIPT] Install VSCode Editor"
 sudo dpkg -i | wget https://code.visualstudio.com/docs/?dv=linux64_deb
 
 echo "[SCRIPT] Installing ZSH and desired plugins."
