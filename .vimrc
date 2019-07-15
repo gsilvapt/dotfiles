@@ -71,12 +71,8 @@ let g:javascript_plugin_jsdoc = 1
 " Colorscheme
 syntax on
 set t_Co=256
-set background=light
+set background=dark
 set colorcolumn=120
-
-let g:gruvbox_contrast_dark='hard'
-let g:gruvbox_contrast_light='hard'
-let g:airline_theme="papercolor"
 
 " Enable Folding
 set foldmethod=indent
