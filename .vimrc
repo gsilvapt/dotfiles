@@ -1,5 +1,4 @@
 highlight Pmenu ctermfg=15 ctermbg=0 guifg=#ffffff guibg=#000000
-
 call plug#begin()
 
 " Custom Plugs
@@ -21,12 +20,15 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'w0rp/ale'                                    " Syntax linter
 
 "" Language support
+Plug 'nvie/vim-flake8'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'moll/vim-node'
-Plug 'nvie/vim-flake8'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'fatih/vim-go'
+ 
+"" Utils
+Plug 'vimwiki/vimwiki'
 
 " All of your Plugs must be added before the following line
 set laststatus=2
@@ -46,14 +48,6 @@ let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
 let g:autoformat_remove_trailing_spaces = 0
 
-" Deoplete configurations
-"let g:deoplete#enable_at_startup = 1
-"inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-
-" YouCompleteMe options
-let g:ycm_autoclose_preview_window_after_completion = 1
-" let g:ycm_autoclose_preview_window_after_insertion = 1
-
 " ALE recommended settings
 let g:ale_enable = 1
 let g:ale_fix_on_save = 1
@@ -72,7 +66,6 @@ let g:javascript_plugin_jsdoc = 1
 syntax on
 set t_Co=256
 set background=dark
-set colorcolumn=120
 
 " Enable Folding
 set foldmethod=indent
