@@ -1,3 +1,5 @@
+highlight Pmenu ctermfg=15 ctermbg=0 guifg=#ffffff guibg=#000000
+
 call plug#begin()
 
 " Custom Plugs
@@ -24,12 +26,7 @@ Plug 'mxw/vim-jsx'
 Plug 'moll/vim-node'
 Plug 'nvie/vim-flake8'
 Plug 'ekalinin/Dockerfile.vim'
-Plug 'rust-lang/rust.vim'
-
-" Colorschemes
-Plug 'morhetz/gruvbox'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'fatih/vim-go'
 
 " All of your Plugs must be added before the following line
 set laststatus=2
@@ -73,16 +70,9 @@ let g:javascript_plugin_jsdoc = 1
 
 " Colorscheme
 syntax on
-set termguicolors
 set t_Co=256
 set background=dark
-colorscheme PaperColor
-let &colorcolumn=join(range(119,999),",")
-let &colorcolumn="100,".join(range(200,999),",")
-
-let g:gruvbox_contrast_dark='hard'
-let g:gruvbox_contrast_light='hard'
-let g:airline_theme="papercolor"
+set colorcolumn=120
 
 " Enable Folding
 set foldmethod=indent

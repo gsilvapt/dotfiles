@@ -1,41 +1,50 @@
 #!/bin/bash
 
 ## APT Packages
-echo "Installing APT packages"
-sudo apt update
-sudo apt install git htop flameshot vim tmux
-sudo apt install build-essential cmake python3-dev fish
+echo "[SCRIPT] Update and Install APT packages"
+sudo apt update && sudo apt upgrade -y
+sudo apt install git zsh htop flameshot fonts-font-awesome vim  fonts-firacode tmux build-essential cmake python3-dev fish
 wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 
-## Snaps 
-echo "Installing snaps"
-sudo snap install spotify --classic
-sudo snap install discord --classic
-sudo snap install slack --classic
-sudo snap install postman
+echo "[SCRIPT] Install Gogh Themes for Ubuntu Terminal"
+read -p "Install SPACEGRAY || Press enter to continue"
+bash -c  "$(wget -qO- https://git.io/vQgMr)"
 
+## Snaps 
+echo "[SCRIPT] Installing snaps"
+snap install spotify --classic
+snap install slack --classic
+snap install postman
 ## FZF
-echo "Installing FZF"
+echo "[SCRIPT] Installing FZF"
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
-echo "Moving config files before installing things"
+echo "[SCRIPT] Moving config files before installing things"
+cp .tmux.conf ~/.tmux.conf
 cp .vimrc ~/.vimrc
 cp .zshrc ~/.zshrc
-cp .gitconfig ~/.config
+cp .gitconfig ~/.gitconfig
 
-echo "Installing oh-my-fish shell"
-curl -L https://get.oh-my.fish | fish
-omf install agnoster
-omf theme agnoster
+echo "[SCIRPT] Prepare Nano for all environments"
+find /usr/share/nano/ -iname "*.nanorc" -exec echo include {} \; >> ~/.nanorc
 
-echo "Install vim-plug and other related utilities"
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+echo "[SCRIPT] Installing Vim Vundle and custom Plugins"
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vimcurl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 vim +PlugInstall +qall
 
 git clone https://github.com/powerline/fonts.git --depth=1
 cd fonts && ./install.sh && cd .. && rm -rf fonts/
 
-echo "Installing VSCode"
-sudo dpkg -i | wgezshht https://code.visualstudio.com/docs/?dv=linux64_deb
+echo "[SCRIPT] Install VSCode Editor"
+sudo dpkg -i | wget https://code.visualstudio.com/docs/?dv=linux64_deb
+
+echo "[SCRIPT] Installing ZSH and desired plugins."
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+echo "[SCRIPT] Starting Tmux and running plugin installation"
+read -p "After entering tmux, press prefix + I to install everything. Now press enter to continue"
+tmux source ~/.tmux.conf 
