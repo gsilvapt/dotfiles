@@ -25,6 +25,7 @@ cp .tmux.conf ~/.tmux.conf
 cp .vimrc ~/.vimrc
 cp .zshrc ~/.zshrc
 cp .gitconfig ~/.gitconfig
+cp .conkyrc ~/.conkyrc
 
 echo "[SCIRPT] Prepare Nano for all environments"
 find /usr/share/nano/ -iname "*.nanorc" -exec echo include {} \; >> ~/.nanorc
