@@ -3,7 +3,7 @@
 ## APT Packages
 echo "[SCRIPT] Update and Install APT packages"
 sudo apt update && sudo apt upgrade -y
-sudo apt install git zsh htop flameshot fonts-font-awesome vim  fonts-firacode tmux build-essential cmake python3-dev fish
+sudo apt install git zsh htop flameshot fonts-font-awesome vim  fonts-firacode tmux build-essential cmake python3-dev
 wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 
 echo "[SCRIPT] Install Gogh Themes for Ubuntu Terminal"
