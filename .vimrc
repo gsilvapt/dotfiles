@@ -26,9 +26,13 @@ Plug 'mxw/vim-jsx'
 Plug 'moll/vim-node'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'fatih/vim-go'
+
+" Colorschemes
+Plug 'altercation/vim-colors-solarized'
  
 "" Utils
 Plug 'vimwiki/vimwiki'
+let g:vimwiki_list = [{'path': '~/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
 
 " All of your Plugs must be added before the following line
 set laststatus=2
@@ -65,7 +69,9 @@ let g:javascript_plugin_jsdoc = 1
 " Colorscheme
 syntax on
 set t_Co=256
-set background=dark
+set background=light
+colorscheme solarized
+let g:airline_theme='solarized'
 
 " Enable Folding
 set foldmethod=indent

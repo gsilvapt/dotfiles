@@ -69,7 +69,7 @@ ${color1}Uptime:${color} $uptime ${color1}    	${alignr}Load:${color} $loadavg
 $hr
 $hr
 ${alignc}${color1}RAM: $memperc% = $mem / $memmax
-${color #88cc00}${cpugraph 60,240 07CC0D FF0000 -t}				${goto 270}${color #88cc00}${memgraph 60,250 07CC0D FF0000 -t}
+${alignc}${color #88cc00}${cpugraph 60,240 07CC0D FF0000 -t}				${goto 270}${color #88cc00}${memgraph 60,250 07CC0D FF0000 -t}
 $hr
 CPU Load:
 ${color}CPU 1 : ${color1}${cpu cpu1}% ${goto 130}${cpubar cpu1 12,125}  	${goto 270}${color}CPU 5 : ${color1}${cpu cpu5}% ${alignr}${cpubar cpu5 12,125}
@@ -77,19 +77,16 @@ ${color}CPU 2 : ${color1}${cpu cpu2}% ${goto 130}${cpubar cpu2 12,125}  	${goto 
 ${color}CPU 3 : ${color1}${cpu cpu3}% ${goto 130}${cpubar cpu3 12,125}  	${goto 270}${color}CPU 7 : ${color1}${cpu cpu7}% ${alignr}${cpubar cpu7 12,125}
 ${color}CPU 4 : ${color1}${cpu cpu4}% ${goto 130}${cpubar cpu4 12,125}  	${goto 270}${color}CPU 8 : ${color1}${cpu cpu8}% ${alignr}${cpubar cpu8 12,125}
 $hr
-${alignc}Temperatures
-CPU						${alignr} GPU and Disk
-Core 1: ${hwmon 0 temp 1}°C			${alignr} Average: 
-Core 2: ${hwmon 1 temp 1}°C
-Core 3: ${hwmon 2 temp 1}°C
-Core 4: ${hwmon 3 temp 1}°C
+${alignc} CPU Temperatures
+Core 1: ${hwmon 0 temp 1}°C						${alignr}Core 2: ${hwmon 1 temp 1}°C
+Core 3: ${hwmon 2 temp 1}°C						${alignr}Core 4: ${hwmon 3 temp 1}°C
 
 ${color #88cc00}Swap Usage: $swapperc% = $swap/$swapmax ${color #88cc00} ${swapbar 4 color1 color3}
 $hr
 ${color1}WiFi Net Down:${color} ${downspeed wlp2s0}   				${goto 270}${color1}Net Up:${color} ${upspeed wlp2s0}
-${color1}${downspeedgraph wlp2s0 60,240 07CC0D FF0000 -t}${color1} 		${goto 270}${upspeedgraph wlp2s0 60,250 07CC0D FF0000 -t}
-${color1}LAN Net Down:${color} ${downspeed enp0s31f6 }   				${goto 270}${color1}Net Up:${color} ${upspeed enp0s31f6}
-${color1}${downspeedgraph enp0s31f6 60,240 07CC0D FF0000 -t}${color1} 		${goto 270}${upspeedgraph enp0s31f6 60,250 07CC0D FF0000 -t}
+${alignc}${color1}${downspeedgraph wlp2s0 60,240 07CC0D FF0000 -t}${color1} 		${goto 270}${upspeedgraph wlp2s0 60,250 07CC0D FF0000 -t}
+${alignc}{${color1}LAN Net Down:${color} ${downspeed enp0s31f6 }   				${goto 270}${color1}Net Up:${color} ${upspeed enp0s31f6}
+${alignc}${color1}${downspeedgraph enp0s31f6 60,240 07CC0D FF0000 -t}${color1} 		${goto 270}${upspeedgraph enp0s31f6 60,250 07CC0D FF0000 -t}
 
 
 $hr
