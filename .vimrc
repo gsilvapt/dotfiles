@@ -26,9 +26,6 @@ Plug 'mxw/vim-jsx'
 Plug 'moll/vim-node'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'fatih/vim-go'
-
-" Colorschemes
-Plug 'altercation/vim-colors-solarized'
  
 "" Utils
 Plug 'vimwiki/vimwiki'
@@ -69,9 +66,7 @@ let g:javascript_plugin_jsdoc = 1
 " Colorscheme
 syntax on
 set t_Co=256
-set background=light
-colorscheme solarized
-let g:airline_theme='solarized'
+set background=dark
 
 " Enable Folding
 set foldmethod=indent
