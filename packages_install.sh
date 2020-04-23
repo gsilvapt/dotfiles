@@ -3,7 +3,7 @@
 ## APT Packages
 echo "[SCRIPT] Update and Install APT packages"
 sudo apt update && sudo apt upgrade -y
-sudo apt install git zsh htop flameshot fonts-font-awesome vim  fonts-firacode tmux build-essential cmake python3-dev
+sudo apt install git zsh htop fonts-font-awesome vim fonts-firacode tmux terminator build-essential cmake python3-dev
 wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 
 echo "[SCRIPT] Install Gogh Themes for Ubuntu Terminal"
@@ -14,7 +14,7 @@ bash -c  "$(wget -qO- https://git.io/vQgMr)"
 echo "[SCRIPT] Installing snaps"
 snap install spotify --classic
 snap install slack --classic
-snap install postman
+
 ## FZF
 echo "[SCRIPT] Installing FZF"
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
