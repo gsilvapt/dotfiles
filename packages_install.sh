@@ -10,11 +10,6 @@ echo "[SCRIPT] Install Gogh Themes for Ubuntu Terminal"
 read -p "Install SPACEGRAY || Press enter to continue"
 bash -c  "$(wget -qO- https://git.io/vQgMr)"
 
-## Snaps 
-echo "[SCRIPT] Installing snaps"
-snap install spotify --classic
-snap install slack --classic
-
 ## FZF
 echo "[SCRIPT] Installing FZF"
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
