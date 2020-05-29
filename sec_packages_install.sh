@@ -3,7 +3,7 @@
 ## Essential packages
 echo "update and install apt packages"
 sudo apt update && sudo apt upgrade -y
-sudo apt install git vim tmux build-essential cmake python3-dev libcurl4-openssl-dev libssl-dev jq ruby-full libxml2 libxml2-dev libxslt1-dev ruby-dev build-essential libgmp-dev zlib1g-dev build-essential libssl-dev libffi-dev python-dev python-setuptools libldns-dev python3-pip ython git rename make gawk g++ gcc libreadline6-dev libyaml-dev libsqlite3-dev sqlite3 autoconf libgdbm-dev libncurses5-dev automake libtool bison pkg-config ruby ruby-bundler -y
+sudo apt install git vim tmux build-essential cmake python3-dev libcurl4-openssl-dev libssl-dev jq ruby-full libxml2 libxml2-dev libxslt1-dev ruby-dev build-essential libgmp-dev zlib1g-dev build-essential libssl-dev libffi-dev libldns-dev python3-pip git rename make gawk g++ gcc libreadline6-dev libyaml-dev libsqlite3-dev sqlite3 autoconf libgdbm-dev libncurses5-dev automake libtool bison pkg-config ruby ruby-bundler -y
 
 
 #install go
