@@ -3,7 +3,7 @@
 ## Essential packages
 echo "update and install apt packages"
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y git vim tmux build-essential cmake python3-dev libcurl4-openssl-dev libssl-dev jq ruby-full libcurl4-openssl-dev libxml2 libxml2-dev libxslt1-dev ruby-dev build-essential libgmp-dev zlib1g-dev build-essential libssl-dev libffi-dev python-dev python-setuptools libldns-dev python3-pip python-pip python-dnspython git rename xargs
+sudo apt install -y git vim tmux build-essential cmake python3-dev libcurl4-openssl-dev libssl-dev jq ruby-full libxml2 libxml2-dev libxslt1-dev ruby-dev build-essential libgmp-dev zlib1g-dev build-essential libssl-dev libffi-dev python-dev python-setuptools libldns-dev python3-pip python-pip python-dnspython git rename xargs make gawk g++ gcc libreadline6-dev libyaml-dev libsqlite3-dev sqlite3 autoconf libgdbm-dev libncurses5-dev automake libtool bison pkg-config ruby ruby-bundler  
 
 
 #install go
@@ -32,6 +32,10 @@ pip install -r requirements.txt
 cd ~/tools/
 echo "done"
 
+echo "installing dirsearch"
+git clone https://github.com/maurosoria/dirsearch.git
+cd ~/tools/
+echo "done"
 
 echo "installing wpscan"
 git clone https://github.com/wpscanteam/wpscan.git
@@ -72,6 +76,10 @@ echo "installing httprobe"
 go get -u github.com/tomnomnom/httprobe
 echo "done"
 
+echo "installing gobuster"
+go get github.com/OJ/gobuster
+echo "done"
+
 echo "downloading Seclists"
 cd ~/tools/
 git clone https://github.com/danielmiessler/SecLists.git
@@ -82,6 +90,7 @@ cd ~/tools/
 echo "done"
 
 echo "move configurations around"
+cd ~/projects/
 cp .vimrc ~/.vimrc
 cp .tmux.conf ~/.tmux.conf
 
