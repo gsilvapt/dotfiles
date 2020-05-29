@@ -3,7 +3,7 @@
 ## Essential packages
 echo "update and install apt packages"
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y git vim tmux build-essential cmake python3-dev libcurl4-openssl-dev libssl-dev jq ruby-full libxml2 libxml2-dev libxslt1-dev ruby-dev build-essential libgmp-dev zlib1g-dev build-essential libssl-dev libffi-dev python-dev python-setuptools libldns-dev python3-pip python-pip python-dnspython git rename xargs make gawk g++ gcc libreadline6-dev libyaml-dev libsqlite3-dev sqlite3 autoconf libgdbm-dev libncurses5-dev automake libtool bison pkg-config ruby ruby-bundler  
+sudo apt install git vim tmux build-essential cmake python3-dev libcurl4-openssl-dev libssl-dev jq ruby-full libxml2 libxml2-dev libxslt1-dev ruby-dev build-essential libgmp-dev zlib1g-dev build-essential libssl-dev libffi-dev python-dev python-setuptools libldns-dev python3-pip python-pip python-dnspython git rename xargs make gawk g++ gcc libreadline6-dev libyaml-dev libsqlite3-dev sqlite3 autoconf libgdbm-dev libncurses5-dev automake libtool bison pkg-config ruby ruby-bundler -y
 
 
 #install go
@@ -28,7 +28,7 @@ cd ~/tools/
 echo "installing Sublist3r"
 git clone https://github.com/aboul3la/Sublist3r.git
 cd Sublist3r*
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 cd ~/tools/
 echo "done"
 
@@ -68,7 +68,7 @@ echo "done"
 echo "installing asnlookup"
 git clone https://github.com/yassineaboukir/asnlookup.git
 cd ~/tools/asnlookup
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 cd ~/tools/
 echo "done"
 
@@ -91,7 +91,7 @@ echo "done"
 
 echo "move configurations around"
 cd ~/projects/
-cp .vimrc ~/.vimrc
+cp .min_vimrc ~/.vimrc
 cp .tmux.conf ~/.tmux.conf
 
 echo "install vim plugins"
