@@ -32,6 +32,9 @@ vim +PlugInstall +qall
 
 git clone https://github.com/powerline/fonts.git --depth=1
 cd fonts && ./install.sh && cd .. && rm -rf fonts/
+wget https://download.jetbrains.com/fonts/JetBrainsMono-1.0.3.zip
+unzip JetBrainsMono-1.0.3.zip
+mv JetBrainsMono-* ~/.local/share/fonts/
 
 echo "[SCRIPT] Install VSCode Editor"
 sudo dpkg -i | wget https://code.visualstudio.com/docs/?dv=linux64_deb
