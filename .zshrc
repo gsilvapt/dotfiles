@@ -107,5 +107,5 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Aliases and other things
-alias vi="vim"
-alias nvim="vim"
+alias vi="nvim"
+alias vim="nvim"
