@@ -5,10 +5,6 @@ echo "[SCRIPT] Update and Install APT packages"
 sudo apt update && sudo apt upgrade -y
 sudo apt install git zsh htop neovim fonts-firacode terminator build-essential cmake python3-dev flameshot
 
-echo "[SCRIPT] Install Gogh Themes for Ubuntu Terminal"
-read -p "Press enter to continue"
-bash -c  "$(wget -qO- https://git.io/vQgMr)"
-
 ## FZF
 echo "[SCRIPT] Installing FZF"
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
@@ -27,6 +23,7 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 echo "[SCRIPT] Fonts & Stuff" 
+wget https://download.jetbrains.com/fonts/JetBrainsMono-1.0.3.zip
 unzip JetBrainsMono-1.0.3.zip
 mv JetBrainsMono-* ~/.local/share/fonts/
 
