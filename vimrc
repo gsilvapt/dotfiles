@@ -1,7 +1,7 @@
 highlight Pmenu ctermfg=15 ctermbg=0 guifg=#ffffff guibg=#000000
 call plug#begin()
 
-" Custom Plugs
+" PLUGINS
 "" Utils
 Plug 'tpope/vim-fugitive'                            " Git Integration
 Plug 'airblade/vim-gitgutter'                        " GitGutter (line ±)
@@ -11,32 +11,11 @@ Plug 'scrooloose/nerdtree'                           " NERDTree plugin
 Plug 'mileszs/ack.vim'                               " A better searcher
 Plug 'yggdroot/indentline'                           " Line indent characters
 
-"" Autocomplete && Finder && Linter
-Plug 'Valloric/YouCompleteMe'
-Plug '/usr/local/opt/fzf'
-Plug 'w0rp/ale'                                    " Syntax linter
+" Airline config
+let g:airline_theme='ayu_mirage'
+let g:airline#extensions#tabline#enabled = 1
 
-"" Language support
-Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
-Plug 'nvie/vim-flake8'
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
-Plug 'moll/vim-node'
-Plug 'ekalinin/Dockerfile.vim'
-
-"" Utils
-Plug 'vimwiki/vimwiki'
-let g:vimwiki_list = [{'path': '~/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
-
-" All of your Plugs must be added before the following line
-set laststatus=2
-call plug#end()            " required
-
-filetype plugin indent on    " required
-
-set encoding=utf-8
-set number relativenumber
-set nosmd
+"" IndentLine config
 let g:indentLine_first_char = '|'
 let g:indentLine_char = '¦'
 let g:indentLine_color_term = 240
@@ -48,10 +27,25 @@ let g:indentLine_setConceal = 2
 " c for Command line editing, for 'incsearch'
 let g:indentLine_concealcursor = "nc"
 
-"" Disable Vim's defaults
-let g:autoformat_autoindent = 0
-let g:autoformat_retab = 0
-let g:autoformat_remove_trailing_spaces = 0
+"" DelimitMate recommended settings
+let delimitMate_expand_cr=1
+
+"" Autocomplete && Finder && Linter
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+"" Use `[c` and `]c` to navigate diagnostics
+nmap <leader>[c <Plug>(coc-diagnostic-prev)
+nmap <leader>]c <Plug>(coc-diagnostic-next)
+
+"" Remap keys for gotos
+nmap <leader>gd <Plug>(coc-definition)
+nmap <leader>gy <Plug>(coc-type-definition)
+nmap <leader>gi <Plug>(coc-implementation)
+nmap <leader>gr <Plug>(coc-references)
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'w0rp/ale'                                    " Syntax linter
 
 " ALE recommended settings
 let g:ale_enable = 1
@@ -61,33 +55,32 @@ let g:ale_sign_error = '●' " Less aggressive than the default '>>'
 let g:ale_sign_warning = '.'
 let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
 
-" DelimitMate recommended settings
-let delimitMate_expand_cr=1
+"" Language support
+Plug 'rust-lang/rust.vim'
 
-" Pangloss/vim-javascript configs
-let g:javascript_plugin_jsdoc = 1
+"" Utils
+Plug 'vimwiki/vimwiki'
+let g:vimwiki_list = [{'path': '~/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
+
+" All of your Plugs must be added before the following line
+set laststatus=2
+call plug#end()            " required
 
 " Colorscheme
 syntax on
 set background=dark
-colorscheme solarized
 set t_Co=256
 
-" Solarized config
-let g:solarized_contrast = "high"
-let g:solarized_visibility = "high"
-let g:solarized_bold = 1
 
-" Airline config
-let g:airline_theme='solarized'
-let g:airline#extensions#tabline#enabled = 1
+" VIM SETTINGS AND OVERRIDES
 
+filetype plugin indent on    " required
 
-" Enable Folding
+set encoding=utf-8
+set number relativenumber
+set nosmd
 set foldmethod=indent
 set foldlevel=99
-
-" Other settings
 set hlsearch
 set smartcase
 set incsearch
@@ -100,6 +93,12 @@ set expandtab
 set shiftwidth=4
 set smarttab
 
+
+" Disable Vim's defaults
+let g:autoformat_autoindent = 0
+let g:autoformat_retab = 0
+let g:autoformat_remove_trailing_spaces = 0
+
 "" Custom mappings
 map <C-n> :NERDTreeToggle<CR>
 map <C-j> <C-W>j
@@ -111,7 +110,6 @@ map <leader>l :bnext<cr>
 map <leader>h :bprevious<cr>
 map <leader>tn :tabnew<cr>
 map <leader>tc :tabclose<cr>
-map <leader>g :Ack
 vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
 
 vnoremap $1 <esc>`>a)<esc>`<i(<esc>
@@ -134,12 +132,10 @@ endif
 vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
 
 " Open Ack and put the cursor in the right position
-map <leader>g :Ack
-
-" When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
+map <leader>/ :Ack 
 
 set backspace=indent,eol,start
+set colorcolumn=120
 
 " Python formatting 
 let python_highlight_all=1
@@ -156,12 +152,3 @@ au BufNewFile,BufRead *.js,*.jsx,*.html,*.css
             \ set tabstop=2 |
             \ set softtabstop=2 |
             \ set shiftwidth=2
-
-" Java formatting
-au BufNewFile,BufRead *.java
-            \ set tabstop=2 |
-            \ set softtabstop=2 |
-            \ set shiftwidth=2 |
-            \ set textwidth=119 |
-            \ set expandtab |
-            \ set autoindent
