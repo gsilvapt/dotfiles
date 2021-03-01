@@ -2,20 +2,22 @@ highlight Pmenu ctermfg=15 ctermbg=0 guifg=#ffffff guibg=#000000
 call plug#begin()
 
 " PLUGINS
-"" Utils
-Plug 'tpope/vim-fugitive'                            " Git Integration
-Plug 'airblade/vim-gitgutter'                        " GitGutter (line ±)
+"" UTILS
 Plug 'vim-airline/vim-airline'                       " Vim Airline
 Plug 'vim-airline/vim-airline-themes'                " Vim Airline Themes
 Plug 'scrooloose/nerdtree'                           " NERDTree plugin
 Plug 'mileszs/ack.vim'                               " A better searcher
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
 Plug 'yggdroot/indentline'                           " Line indent characters
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
-" Airline config
-let g:airline_theme='ayu_mirage'
+"" AIRLINE CONFIG
+let g:airline_theme='onedark'
 let g:airline#extensions#tabline#enabled = 1
 
-"" IndentLine config
+"" INDENTLINE CONFIG
 let g:indentLine_first_char = '|'
 let g:indentLine_char = '¦'
 let g:indentLine_color_term = 240
@@ -27,50 +29,59 @@ let g:indentLine_setConceal = 2
 " c for Command line editing, for 'incsearch'
 let g:indentLine_concealcursor = "nc"
 
-"" DelimitMate recommended settings
-let delimitMate_expand_cr=1
+"" AUTOCOMPLETE && FINDER && LINTER
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+""" Saner defaults for better UX
+set updatetime=300
+""" c-space to trigger completion
+inoremap <silent><expr> <c-space> coc#refresh()
+""" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-"" Autocomplete && Finder && Linter
-Plug 'davidhalter/jedi-vim'
+"" Use `[c` and `]c` to navigate diagnostics
+nmap <leader>[c <Plug>(coc-diagnostic-prev)
+nmap <leader>]c <Plug>(coc-diagnostic-next)
+
+"" Remap keys for gotos
+nmap <leader>gd <Plug>(coc-definition)
+nmap <leader>gy <Plug>(coc-type-definition)
+nmap <leader>gi <Plug>(coc-implementation)
+nmap <leader>gr <Plug>(coc-references)
+"
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+" Organize imports
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'w0rp/ale'                                    " Syntax linter
+Plug 'junegunn/fzf.vim'
 
-" ALE recommended settings
-let g:ale_enable = 1
-let g:ale_fix_on_save = 1
-let g:ale_fixers = {'javascript': ['eslint'], 'python': ['autopep8'], 'java': ['google_java_format']}
-let g:ale_sign_error = '●' " Less aggressive than the default '>>'
-let g:ale_sign_warning = '.'
-let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
+"" LANGUAGE SUPPORT (CUSTOM, IN CASE COC SUCKS FOR A GIVEN LANGUAGE
+Plug 'rust-lang/rust.vim'
 
-"" Language support
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'Shougo/deoplete.nvim'
-Plug 'deoplete-plugins/deoplete-jedi'
-
-let g:deoplete#enable_at_startup = 1
-let g:python3_host_prog = '/home/gsilvapt/.pyenv/versions/neovim3/bin/python'
-let g:go_fmt_command = "goimports"
-let g:go_auto_sameids = 1
-
-"" Utils
+"" UTILS
 Plug 'vimwiki/vimwiki'
 let g:vimwiki_list = [{'path': '~/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
 
-" All of your Plugs must be added before the following line
+" ALL OF YOUR PLUGS MUST BE ADDED BEFORE THE FOLLOWING LINE
 set laststatus=2
 call plug#end()            " required
-
-" Colorscheme
-syntax on
-set background=dark
-set t_Co=256
-
-
-" VIM SETTINGS AND OVERRIDES
-
 filetype plugin indent on    " required
 
+" VIM SETTINGS AND OVERRIDES
+syntax on
+set t_Co=256
 set encoding=utf-8
 set number relativenumber
 set nosmd
@@ -83,13 +94,10 @@ set noswapfile
 set autoindent
 set fileformat=unix
 set tabstop=4
-set softtabstop=0
-set expandtab
+set softtabstop=4
 set shiftwidth=4
 set smarttab
-
-
-" Disable Vim's defaults
+"" Disable Vim's defaults
 let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
 let g:autoformat_remove_trailing_spaces = 0
@@ -101,52 +109,32 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 noremap <c-p> :FZF<CR>
-map <leader>l :bnext<cr>
-map <leader>h :bprevious<cr>
-map <leader>tn :tabnew<cr>
-map <leader>tc :tabclose<cr>
-map <leader>g :Ack
-vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
-
-vnoremap $1 <esc>`>a)<esc>`<i(<esc>
-vnoremap $2 <esc>`>a]<esc>`<i[<esc>
-vnoremap $3 <esc>`>a}<esc>`<i{<esc>
-vnoremap $$ <esc>`>a"<esc>`<i"<esc>
-vnoremap $q <esc>`>a'<esc>`<i'<esc>
-vnoremap $e <esc>`>a"<esc>`<i"<esc>
-
+map <leader>bn :bnext<cr>
+map <leader>bp :bprevious<cr>
 
 " => Ack searching and cope displaying
 "    requires ack.vim - it's much better than vimgrep/grep
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Use the the_silver_searcher if possible (much faster than Ack)
-if executable('ag')
-    let g:ackprg = 'ag --vimgrep --smart-case'
-endif
-
 " When you press gv you Ack after the selected text
 vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
 
 " Open Ack and put the cursor in the right position
-map <leader>g :Ack 
-
-" When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
+map <leader>/ :Ack 
 
 set backspace=indent,eol,start
+set colorcolumn=120
 
 " Python formatting 
 let python_highlight_all=1
 au BufNewFile,BufRead *.py,*.pyc
-            \ set tabstop=4 |
-            \ set softtabstop=4 |
-            \ set shiftwidth=4 |
             \ set textwidth=119 |
             \ set expandtab |
             \ set autoindent |
             \ set fileformat=unix
-" JavaScript formatting
-au BufNewFile,BufRead *.js,*.jsx,*.html,*.css
+" JavaScript and YAML formatting
+au BufNewFile,BufRead *.yaml, *.yml, *.js,*.ts,*.jsx,*.html,*.css
             \ set tabstop=2 |
             \ set softtabstop=2 |
             \ set shiftwidth=2
+
