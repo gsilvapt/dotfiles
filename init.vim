@@ -8,6 +8,7 @@ Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree' 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'mileszs/ack.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'airblade/vim-gitgutter'
 
@@ -17,10 +18,18 @@ call plug#end()            " required
 filetype plugin indent on    " required
 
 " KEY BINDINGS AND REMAPS
+"" Better search
+if executable('ag')
+    let g:ackprg = 'ag --vimgrep --smart-case'
+endif
+" When you press gv you Ack after the selected text
+vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
+" Open Ack and put the cursor in the right position
+map <leader>/ :Ack
 "" c-space to trigger completion
 inoremap <silent><expr> <c-space> coc#refresh() 
 "" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <leader>d :call CocActionAsync('doHover')<cr>
 "" Use `[c` and `]c` to navigate diagnostics
 nmap <leader>i] <Plug>(coc-diagnostic-next)
 nmap <leader>i[ <Plug>(coc-diagnostic-prev)
@@ -29,40 +38,36 @@ nmap <leader>gd <Plug>(coc-definition)
 nmap <leader>gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
 "" Organize imports
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+nmap <leader>OR :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
 
 "" Toggle NerdTree
 map <C-n> :NERDTreeToggle<CR>
 
 "" File Search
-nnoremap <C-p> :GFiles<CR>
+nnoremap <C-p> :FZF <CR>
 
 " VIM SETTINGS AND OVERRIDES
 syntax on
 set t_Co=256
 set encoding=utf-8
 set number relativenumber
-set nosmd
-set foldmethod=indent
-set foldlevel=99
+
 set hlsearch
-set smartcase
 set incsearch
+set linebreak
+
 set noswapfile
 set autoindent
 set fileformat=unix
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+
 set smarttab
+set smartindent
+set expandtab
 "" Disable Vim's defaults
 let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
@@ -72,9 +77,11 @@ map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
+noremap <Leader>Y "+y
 
 " COLORSCHEME
 let g:gruvbox_italic=1
+let g:gruvbox_contrast_dark="hard"
 set termguicolors
 colorscheme gruvbox
 set backspace=indent,eol,start
@@ -91,5 +98,27 @@ au BufNewFile,BufRead *.py,*.pyc
 au BufNewFile,BufRead *.yaml, *.yml, *.js,*.ts,*.jsx,*.html,*.css
             \ set tabstop=2 |
             \ set softtabstop=2 |
-            \ set shiftwidth=2
+            \ set shiftwidth=2 
 
+
+" base default color changes (gruvbox dark friendly)
+hi ErrorMsg ctermbg=234 ctermfg=darkred cterm=NONE
+hi Error ctermbg=234 ctermfg=darkred cterm=NONE
+hi SpellBad ctermbg=234 ctermfg=darkred cterm=NONE
+hi Search ctermbg=236 ctermfg=darkred
+hi vimTodo ctermbg=236 ctermfg=darkred
+hi Todo ctermbg=236 ctermfg=darkred
+hi IncSearch ctermbg=236 cterm=NONE ctermfg=darkred
+hi MatchParen ctermbg=236 ctermfg=darkred
+
+" color overrides
+au FileType * hi ErrorMsg ctermbg=234 ctermfg=darkred cterm=NONE
+au FileType * hi Error ctermbg=234 ctermfg=darkred cterm=NONE
+au FileType * hi SpellBad ctermbg=234 ctermfg=darkred cterm=NONE
+au FileType * hi Search ctermbg=236 ctermfg=darkred
+au FileType * hi vimTodo ctermbg=236 ctermfg=darkred
+au FileType * hi Todo ctermbg=236 ctermfg=darkred
+au FileType * hi IncSearch ctermbg=236 cterm=NONE ctermfg=darkred
+au FileType * hi MatchParen ctermbg=236 ctermfg=darkred
+au FileType markdown,pandoc hi Title ctermfg=yellow ctermbg=NONE
+au FileType markdown,pandoc hi Operator ctermfg=yellow ctermbg=NONE

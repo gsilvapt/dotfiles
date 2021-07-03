@@ -11,7 +11,7 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
 echo "[SCRIPT] Moving config files before installing things"
-mkdir ~/.config.nvim/
+mkdir ~/.config/nvim/
 cp init.vim ~/.config/nvim/init.vim
 cp .zshrc ~/.zshrc
 cp .gitconfig ~/.gitconfig
