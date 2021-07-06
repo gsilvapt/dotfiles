@@ -19,11 +19,11 @@ au FileType go nmap <leader>gd :GoDef<cr>
 au FileType go nmap <leader>rn :GoRename<cr>
 au FileType go nnoremap <leader>d :GoDoc<cr>
 au FileType go nmap <leader>f :GoFmt<cr>
-au FileType go nmap F5 :GoDebugTestFunc
-au FileType go nmap F6 :GoDebugStep
-au FileType go nmap F7 :GoDebugNext
-au FileType go nmap F8 :GoDebugBreakpoint
-au FileType go nmap F10 :GoDebugContinue
+au FileType go nmap <F5> :GoDebugTestFunc
+au FileType go nmap <F6> :GoDebugStep
+au FileType go nmap <F7> :GoDebugNext
+au FileType go nmap <F8> :GoDebugBreakpoint
+au FileType go nmap <F10> :GoDebugContinue
 
 let g:go_fmt_fail_silently = 0
 let g:go_fmt_command = 'goimports'
