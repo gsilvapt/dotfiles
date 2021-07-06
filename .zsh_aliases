@@ -1,0 +1,23 @@
+# Compiles a PDF file from a source file. I'm using this to convert markdown to PDF.
+function compilepdf {
+  pandoc $1 --pdf-engine=pdflatex -o $2
+  xdg-open $2
+}
+
+# Generates a new zettle and opens in vim: creates a new dir in the zettle repo dir with the timestamp, as well as a 
+# README.md file. Lastly, it opens this file in Vim.
+function zettle {
+	local timestamp=$(date +%Y%m%d%H%M%S)
+	local filepath="$HOME/Documents/repos/gitlab.com/zettel/${timestamp}"
+	mkdir $filepath
+	touch $filepath/README.md
+	vim $filepath/README.md
+}
+
+alias vim='nvim'
+alias vi='nvim'
+
+# quite specific to debian based systems, but the idea is to replicate pbcopy and pbpaste from MacOS with Xclip
+alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -selection clipboard -o'
+
