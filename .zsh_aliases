@@ -6,7 +6,7 @@ function compilepdf {
 
 # Generates a new zettle and opens in vim: creates a new dir in the zettle repo dir with the timestamp, as well as a 
 # README.md file. Lastly, it opens this file in Vim.
-function zettle {
+function zettel {
 	local timestamp=$(date +%Y%m%d%H%M%S)
 	local filepath="$HOME/Documents/repos/gitlab.com/zettel/${timestamp}"
 	mkdir $filepath
