@@ -6,42 +6,16 @@ call plug#begin()
 Plug 'morhetz/gruvbox'
 "" UTILS
 Plug 'scrooloose/nerdtree' 
+Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'mileszs/ack.vim'
+Plug 'vim-pandoc/vim-pandoc'
+
+"" Linting + Autocompletion 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'airblade/vim-gitgutter'
 
 "" Custom language support
-""" GO
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-au FileType go nmap <leader>gd :GoDef<cr>
-au FileType go nmap <leader>rn :GoRename<cr>
-au FileType go nnoremap <leader>d :GoDoc<cr>
-au FileType go nmap <leader>f :GoFmt<cr>
-au FileType go nmap <F5> :GoDebugTestFunc<cr>
-au FileType go nmap <F6> :GoDebugStep<cr>
-au FileType go nmap <F7> :GoDebugNext<cr>
-au FileType go nmap <F9> :GoDebugBreakpoint<cr>
-au FileType go nmap <F10> :GoDebugContinue<cr>
-
-let g:go_fmt_fail_silently = 0
-let g:go_fmt_command = 'goimports'
-let g:go_fmt_autosave = 1
-let g:go_gopls_enabled = 1
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_variable_declarations = 1
-let g:go_highlight_variable_assignments = 1
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_diagnostic_errors = 1
-let g:go_highlight_diagnostic_warnings = 1
-let g:go_auto_sameids = 0
-set updatetime=100
 
 " ALL OF YOUR PLUGS MUST BE ADDED BEFORE THE FOLLOWING LINE
 set laststatus=2
@@ -92,9 +66,9 @@ set noswapfile
 set autoindent
 set fileformat=unix
 
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 
 set smarttab
 set smartindent
@@ -114,6 +88,7 @@ noremap <Leader>Y "+y
 let g:gruvbox_italic=1
 let g:gruvbox_contrast_dark="hard"
 set termguicolors
+set background=dark
 colorscheme gruvbox
 set backspace=indent,eol,start
 set colorcolumn=120
