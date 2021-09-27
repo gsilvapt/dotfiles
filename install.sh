@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 ## APT Packages
 echo "[SCRIPT] Update and Install APT packages"
@@ -14,6 +14,8 @@ echo "[SCRIPT] Moving config files before installing things"
 mkdir ~/.config/nvim/
 cp init.vim ~/.config/nvim/init.vim
 cp .zshrc ~/.zshrc
+cp .zsh_aliases ~/.zsh_aliases
+cp .zsh_env ~/.zsh_env
 cp .gitconfig ~/.gitconfig
 cp .tmux.conf ~/.tmux.conf
 
