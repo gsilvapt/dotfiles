@@ -8,7 +8,7 @@ function compilepdf {
 # README.md file. Lastly, it opens this file in Vim.
 function zettel {
 	local timestamp=$(date +%Y%m%d%H%M%S)
-	local filepath="$HOME/Documents/repos/gitlab.com/zettel/${timestamp}"
+	local filepath="$HOME/Documents/gitlab.com/zettel/${timestamp}"
 	mkdir $filepath
 	touch $filepath/README.md
 	vim $filepath/README.md

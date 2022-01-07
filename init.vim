@@ -4,18 +4,23 @@ call plug#begin()
 " PLUGINS
 "" COLORSCHEME
 Plug 'morhetz/gruvbox'
+
 "" UTILS
 Plug 'scrooloose/nerdtree' 
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'mileszs/ack.vim'
-Plug 'vim-pandoc/vim-pandoc'
+Plug 'vimwiki/vimwiki'
+
+let g:vimwiki_list = [{'path': '~/Documents/repos/gitlab.com/zettel',
+                    \ 'syntax': 'markdown', 'ext': '.md'}]
 
 "" Linting + Autocompletion 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 "" Custom language support
+Plug 'fatih/vim-go'
 
 " ALL OF YOUR PLUGS MUST BE ADDED BEFORE THE FOLLOWING LINE
 set laststatus=2
@@ -65,6 +70,7 @@ set linebreak
 set noswapfile
 set autoindent
 set fileformat=unix
+set foldmethod=syntax
 
 set tabstop=4
 set softtabstop=4
@@ -85,11 +91,12 @@ map <C-l> <C-W>l
 noremap <Leader>Y "+y
 
 " COLORSCHEME
+colorscheme gruvbox
 let g:gruvbox_italic=1
 let g:gruvbox_contrast_dark="hard"
+
 set termguicolors
 set background=dark
-colorscheme gruvbox
 set backspace=indent,eol,start
 set colorcolumn=120
 
@@ -106,7 +113,6 @@ au BufNewFile,BufRead *.yaml, *.yml, *.js,*.ts,*.jsx,*.html,*.css
             \ set softtabstop=2 |
             \ set shiftwidth=2 
 
-
 " base default color changes (gruvbox dark friendly)
 hi ErrorMsg ctermbg=234 ctermfg=darkred cterm=NONE
 hi Error ctermbg=234 ctermfg=darkred cterm=NONE
@@ -122,5 +128,5 @@ au FileType * hi SpellBad ctermbg=234 ctermfg=darkred cterm=NONE
 au FileType * hi Search ctermbg=236 ctermfg=darkred
 au FileType * hi vimTodo ctermbg=236 ctermfg=darkred
 au FileType * hi Todo ctermbg=236 ctermfg=darkred
-au FileType markdown,pandoc hi Title ctermfg=yellow ctermbg=NONE
-au FileType markdown,pandoc hi Operator ctermfg=yellow ctermbg=NONE
+au FileType markdown,pandoc,md hi Title ctermfg=yellow ctermbg=NONE
+au FileType markdown,pandoc,md hi Operator ctermfg=yellow ctermbg=NONE
