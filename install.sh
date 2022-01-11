@@ -12,7 +12,9 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 
 echo "[SCRIPT] Moving config files before installing things"
 mkdir ~/.config/nvim/
+mkdir ~/.config/alacritty/
 cp init.vim ~/.config/nvim/init.vim
+cp alacrity.yml ~/.config/alacritty/alacritty.yml
 cp .zshrc ~/.zshrc
 cp .zsh_aliases ~/.zsh_aliases
 cp .zsh_env ~/.zsh_env
