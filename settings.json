@@ -1,7 +1,7 @@
 {
-    "editor.fontFamily": "\"Ubuntu Mono\"",
-    "editor.fontWeight": "normal",
-    "editor.fontSize": 16,
+    "editor.fontFamily": "JetBrains Mono",
+    "editor.fontWeight": "Regular",
+    "editor.fontSize": 13,
     "editor.lineNumbers": "relative",
     "editor.rulers": [
         80,
@@ -11,11 +11,13 @@
     "editor.fontLigatures": true,
     "editor.insertSpaces": true,
     "editor.trimAutoWhitespace": false,
+    "editor.autoClosingBrackets": "never",
+    "editor.autoClosingQuotes": "never",
     "workbench.colorTheme": "Gruvbox Dark Hard",
     "workbench.colorCustomizations": {
-        "statusBar.background": "#8FBCBB",
-        "statusBar.noFolderBackground": "#8FBCBB",
-        "statusBar.debuggingBackground": "#8FBCBB",
+        "statusBar.background": "#B48EAD",
+        "statusBar.noFolderBackground": "#B48EAD",
+        "statusBar.debuggingBackground": "#B48EAD",
         "statusBar.foreground": "#000",
         "statusBar.debuggingForeground": "#000"
     },
@@ -32,32 +34,42 @@
     "vim.useSystemClipboard": true,
     "vim.normalModeKeyBindingsNonRecursive": [
         {
-            "before": [
-                "<Leader>",
-                "g",
-                "d"
-            ],
-            "commands": [
-                "editor.action.goToDeclaration"
-            ]
+            "before": ["<Leader>","g","d"],
+            "commands": ["editor.action.goToDeclaration"]
+        },
+        {
+            "before": ["<Leader>", "g", "r"],
+            "commands": ["editor.action.goToReferences"]
+        },
+        {
+            "before": [ "<Leader>", "r", "s" ],
+            "commands": [ "editor.action.rename" ]
+        },
+        {
+            "before": ["<Leader>", "r", "f"],
+            "commands": ["fileutils.renameFile"]
+        },
+        {
+            "before": ["<Leader>", "f", "d"],
+            "commands": ["editor.action.formatDocument"],
         }
     ],
     "vim.visualModeKeyBindingsNonRecursive": [
         {
-            "before": [
-                ">"
-            ],
-            "commands": [
-                "editor.action.indentLines"
-            ]
+            "before": [ ">" ],
+            "commands": ["editor.action.indentLines"]
         },
         {
-            "before": [
-                "<"
-            ],
-            "commands": [
-                "editor.action.outdentLines"
-            ]
+            "before": ["<"],
+            "commands": ["editor.action.outdentLines"]
+        },
+        {
+            "before": ["<Leader>", "f", "s"],
+            "commands": ["editor.action.formatSelection"]
+        },
+        {
+            "before": ["<Leader>", "\\", "y"],
+            "commands": ["editor.action.copyClipboardAction"]
         }
     ],
     "vim.statusBarColorControl": true,
@@ -87,5 +99,8 @@
     "vim.statusBarColors.easymotionmode": "#007ACC",
     "vim.statusBarColors.easymotioninputmode": "#007ACC",
     "vim.statusBarColors.surroundinputmode": "#007ACC",
-    "terminal.integrated.fontSize": 16
+    "files.autoSave": "onFocusChange",
+    "terminal.integrated.fontSize": 13,
+    "workbench.iconTheme": "material-icon-theme",
+    "extensions.ignoreRecommendations": true
 }
