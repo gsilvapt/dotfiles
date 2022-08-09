@@ -1,0 +1,38 @@
+" Tweaks
+let mapleader="\\"
+
+" Plugins
+set surround
+set multiple-cursors
+set commentary
+set argtextobj
+set easymotion
+set textobj-entire
+set ReplaceWithRegister
+set exchange
+
+""" Common settings -------------------------
+set showmode
+set so=5
+set relativenumber
+set incsearch
+set nu
+
+""" Idea specific settings ------------------
+set ideajoin
+set ideastatusicon=gray
+
+map <leader>oi <Action>(OrganizeImports)
+
+nnoremap <c-p> :action GotoFile<CR>
+nnoremap <leader>/ :action GotoClass<CR>
+nnoremap <leader>gd :action GotoDeclaration<CR>
+nnoremap <leader>gi :action GotoImplementation<CR>
+nnoremap <leader>gr :action FindUsages<CR>
+
+nnoremap <leader>rs :action RenameElement<CR>
+
+map <leader>en <Action>(GotoNextError)
+map <leader>ep <Action>(GotoPreviousError)
+
+set ideastrictmode
