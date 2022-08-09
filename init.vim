@@ -1,4 +1,3 @@
-highlight Pmenu ctermfg=15 ctermbg=0 guifg=#ffffff guibg=#000000
 call plug#begin()
 
 " PLUGINS
@@ -11,27 +10,43 @@ Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'mileszs/ack.vim'
-Plug 'vimwiki/vimwiki'
-
-let g:vimwiki_list = [{'path': '~/Documents/repos/gitlab.com/zettel',
-                    \ 'syntax': 'markdown', 'ext': '.md'}]
-
-"" Linting + Autocompletion 
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-"" Custom language support
+" Custom language support
 Plug 'fatih/vim-go'
 
 " ALL OF YOUR PLUGS MUST BE ADDED BEFORE THE FOLLOWING LINE
 set laststatus=2
 call plug#end()            " required
-filetype plugin indent on    " required
 
 " KEY BINDINGS AND REMAPS
-"" Better search
-if executable('ag')
-    let g:ackprg = 'ag --vimgrep --smart-case'
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ CheckBackspace() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
 endif
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 " When you press gv you Ack after the selected text
 vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
 " Open Ack and put the cursor in the right position
@@ -51,11 +66,19 @@ nmap <leader>rn <Plug>(coc-rename)
 "" Organize imports
 nmap <leader>OR :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
 
+" Search selected text in directory
+vnoremap <leader>gs :call VisualSelection('gv', '')<CR>
+" Open Ack and put the cursor in the right position
+map <leader>/ :Rg<CR>
+" Quick shortcut to cycle through all buffers.
+nnoremap <leader>bn :bnext<CR>
+nnoremap <leader>bp :bprevious<CR>
+
 "" Toggle NerdTree
 map <C-n> :NERDTreeToggle<CR>
 
 "" File Search
-nnoremap <C-p> :FZF <CR>
+nnoremap <C-p> :Files <CR>
 
 " VIM SETTINGS AND OVERRIDES
 syntax on
@@ -70,7 +93,6 @@ set linebreak
 set noswapfile
 set autoindent
 set fileformat=unix
-set foldmethod=syntax
 
 set tabstop=4
 set softtabstop=4
@@ -112,6 +134,12 @@ au BufNewFile,BufRead *.yaml, *.yml, *.js,*.ts,*.jsx,*.html,*.css
             \ set tabstop=2 |
             \ set softtabstop=2 |
             \ set shiftwidth=2 
+
+" Ruby Specific settings
+aut BufNewFile,BufRead *.rb 
+            \ set softtabstop=2 |
+            \ set sw=2 |
+            \ set ts=2
 
 " base default color changes (gruvbox dark friendly)
 hi ErrorMsg ctermbg=234 ctermfg=darkred cterm=NONE
