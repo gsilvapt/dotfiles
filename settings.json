@@ -1,7 +1,7 @@
 {
-    "editor.fontFamily": "JetBrains Mono",
-    "editor.fontWeight": "Regular",
-    "editor.fontSize": 13,
+    "editor.fontFamily": "Ubuntu Mono",
+    "editor.fontWeight": "normal",
+    "editor.fontSize": 16,
     "editor.lineNumbers": "relative",
     "editor.rulers": [
         80,
@@ -15,9 +15,9 @@
     "editor.autoClosingQuotes": "never",
     "workbench.colorTheme": "Gruvbox Dark Hard",
     "workbench.colorCustomizations": {
-        "statusBar.background": "#B48EAD",
-        "statusBar.noFolderBackground": "#B48EAD",
-        "statusBar.debuggingBackground": "#B48EAD",
+        "statusBar.background": "#8FBCBB",
+        "statusBar.noFolderBackground": "#8FBCBB",
+        "statusBar.debuggingBackground": "#8FBCBB",
         "statusBar.foreground": "#000",
         "statusBar.debuggingForeground": "#000"
     },
@@ -52,6 +52,18 @@
         {
             "before": ["<Leader>", "f", "d"],
             "commands": ["editor.action.formatDocument"],
+        },
+        {
+            "before": ["C-v", "e"],
+            "commands": ["workbench.view.explorer"],
+        },
+        {
+            "before": ["C-v", "p"],
+            "commands": ["workbench.view.plugins"],
+        },
+        {
+            "before": ["C-v", "d"],
+            "commands": ["workbench.view.debug"],
         }
     ],
     "vim.visualModeKeyBindingsNonRecursive": [
@@ -100,7 +112,8 @@
     "vim.statusBarColors.easymotioninputmode": "#007ACC",
     "vim.statusBarColors.surroundinputmode": "#007ACC",
     "files.autoSave": "onFocusChange",
-    "terminal.integrated.fontSize": 13,
     "workbench.iconTheme": "material-icon-theme",
-    "extensions.ignoreRecommendations": true
+    "extensions.ignoreRecommendations": true,
+    "go.toolsManagement.autoUpdate": true,
+    "terminal.integrated.fontSize": 16
 }
