@@ -13,6 +13,7 @@
     "editor.trimAutoWhitespace": false,
     "editor.autoClosingBrackets": "never",
     "editor.autoClosingQuotes": "never",
+    "workbench.colorTheme": "Gruvbox Dark Hard",
     "workbench.colorCustomizations": {
         "statusBar.background": "#B48EAD",
         "statusBar.noFolderBackground": "#B48EAD",
@@ -50,7 +51,19 @@
         },
         {
             "before": ["<Leader>", "f", "d"],
-            "commands": ["editor.action.formatDocument"],
+            "commands": ["editor.action.formatDocument"]
+        },
+        {
+            "before": ["C-v", "e"],
+            "commands": ["workbench.view.explorer"]
+        },
+        {
+            "before": ["C-v", "p"],
+            "commands": ["workbench.view.plugins"]
+        },
+        {
+            "before": ["C-v", "d"],
+            "commands": ["workbench.view.debug"]
         }
     ],
     "vim.visualModeKeyBindingsNonRecursive": [
@@ -101,5 +114,6 @@
     "files.autoSave": "onFocusChange",
     "terminal.integrated.fontSize": 16,
     "workbench.iconTheme": "material-icon-theme",
-    "extensions.ignoreRecommendations": true
+    "extensions.ignoreRecommendations": true,
+    "go.toolsManagement.autoUpdate": true
 }
