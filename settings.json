@@ -1,5 +1,5 @@
 {
-    "editor.fontFamily": "\"Ubuntu Mono\"",
+    "editor.fontFamily": "Ubuntu Mono",
     "editor.fontWeight": "Regular",
     "editor.fontSize": 16,
     "editor.lineNumbers": "relative",
@@ -13,7 +13,9 @@
     "editor.trimAutoWhitespace": false,
     "editor.autoClosingBrackets": "never",
     "editor.autoClosingQuotes": "never",
-    "workbench.colorTheme": "Gruvbox Dark Hard",
+    "editor.minimap.enabled": false,
+    "workbench.activityBar.visible": false,
+    "breadcrumbs.enabled": false,
     "workbench.colorCustomizations": {
         "statusBar.background": "#B48EAD",
         "statusBar.noFolderBackground": "#B48EAD",
@@ -32,6 +34,7 @@
     "vim.incsearch": true,
     "vim.hlsearch": true,
     "vim.useSystemClipboard": true,
+    "vim.foldfix": true,
     "vim.normalModeKeyBindingsNonRecursive": [
         {
             "before": ["<Leader>","g","d"],
@@ -115,5 +118,5 @@
     "terminal.integrated.fontSize": 16,
     "workbench.iconTheme": "material-icon-theme",
     "extensions.ignoreRecommendations": true,
-    "go.toolsManagement.autoUpdate": true
+    "go.toolsManagement.autoUpdate": true,
 }
