@@ -1,7 +1,6 @@
 {
-    "editor.fontFamily": "Ubuntu Mono",
-    "editor.fontWeight": "Regular",
-    "editor.fontSize": 16,
+    "editor.fontFamily": "JetBrains Mono",
+    "editor.fontWeight": "normal",
     "editor.lineNumbers": "relative",
     "editor.rulers": [
         80,
@@ -15,7 +14,6 @@
     "editor.autoClosingQuotes": "never",
     "editor.minimap.enabled": false,
     "workbench.activityBar.visible": false,
-    "breadcrumbs.enabled": false,
     "workbench.colorCustomizations": {
         "statusBar.background": "#B48EAD",
         "statusBar.noFolderBackground": "#B48EAD",
@@ -34,7 +32,6 @@
     "vim.incsearch": true,
     "vim.hlsearch": true,
     "vim.useSystemClipboard": true,
-    "vim.foldfix": true,
     "vim.normalModeKeyBindingsNonRecursive": [
         {
             "before": ["<Leader>","g","d"],
@@ -115,8 +112,11 @@
     "vim.statusBarColors.easymotioninputmode": "#007ACC",
     "vim.statusBarColors.surroundinputmode": "#007ACC",
     "files.autoSave": "onFocusChange",
-    "terminal.integrated.fontSize": 16,
+    "terminal.integrated.fontSize": 14,
     "workbench.iconTheme": "material-icon-theme",
     "extensions.ignoreRecommendations": true,
     "go.toolsManagement.autoUpdate": true,
+    "editor.fontSize": 14,
+    "redhat.telemetry.enabled": false,
+    "workbench.colorTheme": "GitHub Dark Default",
 }
