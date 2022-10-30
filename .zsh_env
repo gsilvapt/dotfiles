@@ -14,3 +14,5 @@ export PATH=$PATH:$GOPATH/bin
 
 export DOTFILES="$HOME/Documents/github.com/dotfiles"
 export TEMPLATES="$DOTFILES/templates"
+
+export GPG_TTY=$(tty) # bloody fix for GPG to work 
