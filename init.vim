@@ -9,7 +9,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'mileszs/ack.vim'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -69,10 +68,6 @@ endif
 " format on enter, <cr> could be remapped by other vim plugin
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-" When you press gv you Ack after the selected text
-vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
-" Open Ack and put the cursor in the right position
-map <leader>/ :Ack 
 "" c-space to trigger completion
 inoremap <silent><expr> <c-space> coc#refresh() 
 "" Use K to show documentation in preview window.
@@ -91,7 +86,7 @@ nmap <leader>OR :call CocAction('runCommand', 'editor.action.organizeImport')<CR
 " Search selected text in directory
 vnoremap <leader>gs :call VisualSelection('gv', '')<CR>
 " Open Ack and put the cursor in the right position
-map <leader>/ :Rg<CR>
+map <leader>/ :Rg <CR>
 " Quick shortcut to cycle through all buffers.
 nnoremap <leader>bn :bnext<CR>
 nnoremap <leader>bp :bprevious<CR>
