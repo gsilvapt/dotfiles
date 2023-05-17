@@ -7,6 +7,7 @@ Plug 'morhetz/gruvbox'
 "" UTILS
 Plug 'scrooloose/nerdtree' 
 Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'vim-pandoc/vim-pandoc'
@@ -133,6 +134,7 @@ noremap <Leader>Y "+y
 colorscheme gruvbox
 let g:gruvbox_italic=1
 let g:gruvbox_contrast_dark="hard"
+autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
 
 set termguicolors
 set background=dark
@@ -152,11 +154,8 @@ au BufNewFile,BufRead *.yaml, *.yml, *.js,*.ts,*.jsx,*.html,*.css
             \ set softtabstop=2 |
             \ set shiftwidth=2 
 
-" Ruby Specific settings
-aut BufNewFile,BufRead *.rb 
-            \ set softtabstop=2 |
-            \ set sw=2 |
-            \ set ts=2
+" vim-pandoc stuff
+let g:python3_host_prog="~/.pyenv/shims/python3"
 
 " base default color changes (gruvbox dark friendly)
 hi ErrorMsg ctermbg=234 ctermfg=darkred cterm=NONE

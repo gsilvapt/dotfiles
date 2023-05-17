@@ -106,4 +106,3 @@ source $ZSH/oh-my-zsh.sh
 [ -f ~/.zsh_env ] && source ~/.zsh_env
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-
