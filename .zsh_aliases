@@ -16,7 +16,7 @@ function zettel {
 
 # Copies a markdown template into the local directory for consistent note taking on new boxes (HackTheBox and TryHackMe).
 function newbox {
-    [[ -z "$TEMPLATEs" ]] && echo "TEMPLATES directory undefined" && exit 1
+    [[ -z "$TEMPLATES" ]] && echo "TEMPLATES directory undefined" && exit 1
     cp $TEMPLATES/box ./notes.md
 }
 
