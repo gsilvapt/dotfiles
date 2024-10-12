@@ -15,8 +15,8 @@ RH_PKGS=(
     "zsh"
     "neovim"
     "@development-tools"
-    "@development-libraries"
 )
+
 
 declare -A DOTFILES_MAP
 DOTFILES_MAP["init.vim"]="$HOME/.config/nvim/init.vim"
@@ -26,7 +26,6 @@ DOTFILES_MAP[".zsh_env"]="$HOME/.zsh_env"
 DOTFILES_MAP[".zsh_aliases"]="$HOME/.zsh_aliases"
 DOTFILES_MAP[".tmux.conf"]="$HOME/.tmux.conf"
 DOTFILES_MAP[".gitconfig"]="$HOME/.gitconfig"
-
 
 
 get_pkg_manager() {
@@ -48,6 +47,7 @@ install_pkgs() {
         return 0
     fi
     pkg_manager="$(get_pkg_manager)"
+    echo "installing dependencies for ${pkg_manager}"
     case $pkg_manager in 
         "apt")
             sudo apt update -y && sudo apt install -y "${DEB_PKGS[@]}"
@@ -65,10 +65,10 @@ install_pkgs() {
 }
 
 create_symlinks() {
-    for file in "${!DOTFILES_MAP}"; do
+    for file in "${!DOTFILES_MAP[@]}"; do
+        echo "creating symlink for $file at ${DOTFILES_MAP[$file]}"
         ln -s "$(pwd)/$file" "${DOTFILES_MAP[$file]}"
     done
-    return 0
 }
 
 main() {
@@ -90,12 +90,10 @@ main() {
     fi
 
     echo "preparing environment to symlink dotfiles"
-    mkdir ~/.config/nvim/
-    mkdir ~/.config/alacritty/
+    mkdir -p "$HOME/.config/nvim/"
+    mkdir -p "$HOME/.config/alacritty/"
 
-    if ! create_symlinks; then
-        exit $?
-    fi
+    create_symlinks
 
     echo "installing miscellaneous tools"
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
@@ -103,6 +101,8 @@ main() {
 
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+    vim +PlugInstall! +qall
 
     return 0
 }
