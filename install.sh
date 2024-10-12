@@ -1,27 +1,92 @@
 #!/usr/bin/bash
 
-## APT Packages
-echo "[SCRIPT] Update and Install APT packages"
-sudo apt update && sudo apt upgrade -y
-sudo apt install git zsh htop neovim fonts-firacode terminator build-essential cmake python3-dev flameshot
+DEB_PKGS=(
+    "git"
+    "zsh"
+    "htop"
+    "neovim"
+    "build-essential"
+    "cmake"
+    "python3-dev"
+)
 
-## FZF
-echo "[SCRIPT] Installing FZF"
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
+RH_PKGS=(
+    "git"
+    "zsh"
+    "neovim"
+    "@development-tools"
+    "@development-libraries"
+)
 
-echo "[SCRIPT] Moving config files before installing things"
-mkdir ~/.config/nvim/
-mkdir ~/.config/alacritty/
-cp init.vim ~/.config/nvim/init.vim
-cp alacrity.yml ~/.config/alacritty/alacritty.yml
-cp .zshrc ~/.zshrc
-cp .zsh_aliases ~/.zsh_aliases
-cp .zsh_env ~/.zsh_env
-cp .gitconfig ~/.gitconfig
-cp .tmux.conf ~/.tmux.conf
+declare -A DOTFILES_MAP
+DOTFILES_MAP["init.vim"]="$HOME/.config/nvim/init.vim"
+DOTFILES_MAP["alacritty.toml"]="$HOME/.config/alacritty/alacritty.toml"
+DOTFILES_MAP[".zshrc"]="$HOME/.zshrc"
+DOTFILES_MAP[".zsh_env"]="$HOME/.zsh_env"
+DOTFILES_MAP[".zsh_aliases"]="$HOME/.zsh_aliases"
+DOTFILES_MAP[".tmux.conf"]="$HOME/.tmux.conf"
+DOTFILES_MAP[".gitconfig"]="$HOME/.gitconfig"
 
-echo "[SCRIPT] Installing Vim Vundle and custom Plugins"
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+
+
+get_pkg_manager() {
+    if command -v apt &> /dev/null; then
+        echo "apt"
+    elif command -v dnf &> /dev/null; then
+        echo "dnf"
+    elif command -v brew &> /dev/null; then
+        echo "brew"
+    else
+        echo ""
+    fi
+}
+
+install_pkgs() {
+    pkg_manager="$(get_pkg_manager)"
+    case $pkg_manager in 
+        "apt")
+            sudo apt update -y && sudo apt install -y "${DEB_PKGS[@]}"
+            return 0
+            ;;
+        "dnf")
+            sudo dnf update -y && sudo dnf install -y "${RH_PKGS[@]}"
+            return 0
+            ;;
+        *)
+            echo "failed to detect system's package manager: ${pkg_manager}"
+            return 1
+            ;;
+    esac
+}
+
+create_symlinks() {
+    for file in "${!DOTFILES_MAP}"; do
+        ln -s "$(pwd)/$file" "${DOTFILES_MAP[$file]}"
+    done
+    return 0
+}
+
+main() {
+    if ! install_pkgs; then
+        exit $?
+    fi
+
+    echo "preparing environment to symlink dotfiles"
+    mkdir ~/.config/nvim/
+    mkdir ~/.config/alacritty/
+
+    if ! create_symlinks; then
+        exit $?
+    fi
+
+    echo "installing miscellaneous tools"
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install
+
+    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
+    return 0
+}
+
+main "$@"
