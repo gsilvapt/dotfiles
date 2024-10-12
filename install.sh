@@ -42,6 +42,11 @@ get_pkg_manager() {
 }
 
 install_pkgs() {
+    local skip=$1
+    if $skip; then
+        echo "skipping pkg installation as --skip-pkg-install was provided"
+        return 0
+    fi
     pkg_manager="$(get_pkg_manager)"
     case $pkg_manager in 
         "apt")
@@ -67,7 +72,20 @@ create_symlinks() {
 }
 
 main() {
-    if ! install_pkgs; then
+    skip_pkgs=false
+    while [[ "$1" != "" ]]; do
+        case $1 in
+            --skip-pkg-install)
+                skip_pkgs=true
+                ;;
+            *)
+                echo "unrecognized flag: only --skip-pkg-install is supported"
+                exit 1
+        esac
+        shift
+        done
+
+    if ! install_pkgs $skip_pkgs; then
         exit $?
     fi
 
