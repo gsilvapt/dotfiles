@@ -3,6 +3,7 @@ call plug#begin()
 " PLUGINS
 "" COLORSCHEME
 Plug 'morhetz/gruvbox'
+Plug 'dracula/vim', { 'as': 'dracula' }
 
 "" UTILS
 Plug 'scrooloose/nerdtree' 
@@ -12,10 +13,40 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'dense-analysis/ale'
 
 " Custom language support
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+set omnifunc=ale#completion#OmniFunc
+let g:ale_completion_enabled = 1
+let g:ale_completion_autoimport = 1
+let g:ale_lint_on_text_changed='never'
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+let g:ale_use_neovim_diagnostics_api = 1
+let g:ale_linters = {
+\    'go': ['gols'],
+\    'python': ['pylsp'],
+\    'sh': ['shellcheck'],
+\}
+
+let g:ale_fixers = {
+\    '*': ['remove_trailing_lines', 'trim_whitespace'],
+\    'go': ['gols'],
+\    'python': ['ruff'],
+\    'sh': ['shellcheck'],
+\}
+
+let g:ale_python_pyls_executable = 'pylsp'
+if executable('pyls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
+
 
 " golang
 let g:go_fmt_fail_silently = 0
@@ -41,51 +72,19 @@ set laststatus=2
 call plug#end()            " required
 
 " KEY BINDINGS AND REMAPS
-" Use tab for trigger completion with characters ahead and navigate.
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-" Make <CR> to accept selected completion item or notify coc.nvim to format
-" <C-g>u breaks current undo, please make your own choice.
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
-
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-"" c-space to trigger completion
-inoremap <silent><expr> <c-space> coc#refresh() 
-"" Use K to show documentation in preview window.
-nnoremap <leader>d :call CocActionAsync('doHover')<cr>
-"" Use `[c` and `]c` to navigate diagnostics
-nmap <leader>i] <Plug>(coc-diagnostic-next)
-nmap <leader>i[ <Plug>(coc-diagnostic-prev)
-
-nmap <leader>gd <Plug>(coc-definition)
-nmap <leader>gr <Plug>(coc-references)
-nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>i] <Plug>(ale_previous_wrap)
+nmap <leader>i[ <Plug>(ale_next_wrap)
+nmap K <Plug>(ale_hover)
+nmap <leader>gd <Plug>(ale_go_to_definition)
+nmap <leader>gr <Plug>(ale_find_references)
+nmap <leader>rn <Plug>(ale_rename)
 
 "" Organize imports
 nmap <leader>OR :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
 
 " Search selected text in directory
-vnoremap <leader>gs :call VisualSelection('gv', '')<CR>
+vnoremap <leader>ss :call VisualSelection('gv', '')<CR>
 " Open Ack and put the cursor in the right position
 map <leader>/ :Rg <CR>
 " Quick shortcut to cycle through all buffers.
@@ -131,9 +130,10 @@ map <C-l> <C-W>l
 noremap <Leader>Y "+y
 
 " COLORSCHEME
-colorscheme gruvbox
+colorscheme dracula
 let g:gruvbox_italic=1
 let g:gruvbox_contrast_dark="hard"
+let g:gruvbox_contrast_light="hard"
 autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
 
 set termguicolors
@@ -149,28 +149,14 @@ au BufNewFile,BufRead *.py,*.pyc
             \ set autoindent |
             \ set fileformat=unix
 " JavaScript and YAML formatting
-au BufNewFile,BufRead *.yaml, *.yml, *.js,*.ts,*.jsx,*.html,*.css
+au BufNewFile,BufRead *.yml, *.js,*.ts,*.jsx,*.html,*.css
             \ set tabstop=2 |
             \ set softtabstop=2 |
             \ set shiftwidth=2 
 
+" Override gohtml filetype automatically to HTML
+au BufRead,BufNewFile *.gohtml 
+            \ set filetype=html
+
 " vim-pandoc stuff
 let g:python3_host_prog="~/.pyenv/shims/python3"
-
-" base default color changes (gruvbox dark friendly)
-hi ErrorMsg ctermbg=234 ctermfg=darkred cterm=NONE
-hi Error ctermbg=234 ctermfg=darkred cterm=NONE
-hi SpellBad ctermbg=234 ctermfg=darkred cterm=NONE
-hi Search ctermbg=236 ctermfg=darkred
-hi vimTodo ctermbg=236 ctermfg=darkred
-hi Todo ctermbg=236 ctermfg=darkred
-
-" color overrides
-au FileType * hi ErrorMsg ctermbg=234 ctermfg=darkred cterm=NONE
-au FileType * hi Error ctermbg=234 ctermfg=darkred cterm=NONE
-au FileType * hi SpellBad ctermbg=234 ctermfg=darkred cterm=NONE
-au FileType * hi Search ctermbg=236 ctermfg=darkred
-au FileType * hi vimTodo ctermbg=236 ctermfg=darkred
-au FileType * hi Todo ctermbg=236 ctermfg=darkred
-au FileType markdown,pandoc,md hi Title ctermfg=yellow ctermbg=NONE
-au FileType markdown,pandoc,md hi Operator ctermfg=yellow ctermbg=NONE
