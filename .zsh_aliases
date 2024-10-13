@@ -4,29 +4,13 @@ function compilepdf {
   xdg-open $2
 }
 
-# Generates a new zettle and opens in vim: creates a new dir in the zettle repo dir with the timestamp, as well as a 
-# README.md file. Lastly, it opens this file in Vim.
-function zettel {
-	local timestamp=$(date +%Y%m%d%H%M%S)
-	local filepath="$HOME/Documents/gitlab.com/zettel/${timestamp}"
-	mkdir $filepath
-	touch $filepath/README.md
-	vim $filepath/README.md
-}
-
-# Copies a markdown template into the local directory for consistent note taking on new boxes (HackTheBox and TryHackMe).
-function newbox {
-    [[ -z "$TEMPLATES" ]] && echo "TEMPLATES directory undefined" && exit 1
-    cp $TEMPLATES/box ./notes.md
-}
-
 alias lynx="lynx -cfg=$HOME/.lynx.cfg -lss=$HOME/.lynx.lss"
 
 ddg() {
     declare url=$(urlencode "$*")
     lynx "https://duckduckgo.com/lite?q=$url"
 }
-alias "?"=duck
+alias "?"=ddg
 
 google() {
     declare url=$(urlencode "$*")
