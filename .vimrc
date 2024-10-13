@@ -24,7 +24,6 @@ let g:ale_completion_autoimport = 1
 let g:ale_lint_on_text_changed='never'
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
-let g:ale_use_neovim_diagnostics_api = 1
 let g:ale_linters = {
 \    'go': ['gols'],
 \    'python': ['pylsp'],
