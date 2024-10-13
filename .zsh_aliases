@@ -20,8 +20,6 @@ function newbox {
     cp $TEMPLATES/box ./notes.md
 }
 
-alias vim='nvim'
-alias vi='nvim'
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 alias rustscan='docker run -it --rm --name rustscan rustscan/rustscan:1.10.0'

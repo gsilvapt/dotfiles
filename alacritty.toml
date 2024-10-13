@@ -67,6 +67,6 @@ save_to_clipboard = true
 
 [window]
 decorations = "None"
-opacity = 0.9
+opacity = 1
 startup_mode = "maximized"
 

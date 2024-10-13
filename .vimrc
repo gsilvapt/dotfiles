@@ -130,13 +130,16 @@ map <C-l> <C-W>l
 noremap <Leader>Y "+y
 
 " COLORSCHEME
-colorscheme dracula
+colorscheme gruvbox
+let g:gruvbox_bold=1
 let g:gruvbox_italic=1
 let g:gruvbox_contrast_dark="hard"
 let g:gruvbox_contrast_light="hard"
 autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
 
-set termguicolors
+if (has("termguicolors"))
+    set termguicolors
+endif
 set background=dark
 set backspace=indent,eol,start
 set colorcolumn=120
