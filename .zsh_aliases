@@ -20,6 +20,21 @@ function newbox {
     cp $TEMPLATES/box ./notes.md
 }
 
+alias lynx="lynx -cfg=$HOME/.lynx.cfg -lss=$HOME/.lynx.lss"
+
+ddg() {
+    declare url=$(urlencode "$*")
+    lynx "https://duckduckgo.com/lite?q=$url"
+}
+alias "?"=duck
+
+google() {
+    declare url=$(urlencode "$*")
+    lynx "https://google.com/search?q=$url"
+}
+alias "??"=google
+
+
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 alias rustscan='docker run -it --rm --name rustscan rustscan/rustscan:1.10.0'

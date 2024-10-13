@@ -26,6 +26,8 @@ DOTFILES_MAP[".zsh_env"]="$HOME/.zsh_env"
 DOTFILES_MAP[".zsh_aliases"]="$HOME/.zsh_aliases"
 DOTFILES_MAP[".tmux.conf"]="$HOME/.tmux.conf"
 DOTFILES_MAP[".gitconfig"]="$HOME/.gitconfig"
+DOTFILES_MAP[".lynx.cfg"]="$HOME/.lynx.cfg"
+DOTFILES_MAP[".lynx.lss"]="$HOME/.lynx.lss"
 
 
 get_pkg_manager() {
