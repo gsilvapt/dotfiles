@@ -31,10 +31,10 @@ let g:ale_linters = {
 \}
 
 let g:ale_fixers = {
-\    '*': ['remove_trailing_lines', 'trim_whitespace'],
 \    'go': ['gols'],
 \    'python': ['ruff'],
 \    'sh': ['shellcheck'],
+\    '*': ['remove_trailing_lines', 'trim_whitespace'],
 \}
 
 let g:ale_python_pyls_executable = 'pylsp'
