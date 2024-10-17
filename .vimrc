@@ -25,13 +25,13 @@ let g:ale_lint_on_text_changed='never'
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 let g:ale_linters = {
-\    'go': ['gols'],
+\    'go': ['gopls'],
 \    'python': ['pylsp'],
 \    'sh': ['shellcheck'],
 \}
 
 let g:ale_fixers = {
-\    'go': ['gols'],
+\    'go': ['gopls'],
 \    'python': ['ruff'],
 \    'sh': ['shellcheck'],
 \    '*': ['remove_trailing_lines', 'trim_whitespace'],
