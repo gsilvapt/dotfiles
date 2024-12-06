@@ -20,6 +20,7 @@ RH_PKGS=(
 
 declare -A DOTFILES_MAP
 DOTFILES_MAP[".vimrc"]="$HOME/.vimrc"
+DOTFILES_MAP["init.vim"]="$HOME/.config/.vimrc"
 DOTFILES_MAP["alacritty.toml"]="$HOME/.config/alacritty/alacritty.toml"
 DOTFILES_MAP[".zshrc"]="$HOME/.zshrc"
 DOTFILES_MAP[".zsh_env"]="$HOME/.zsh_env"
