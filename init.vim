@@ -46,6 +46,7 @@ if executable('pyls')
         \ })
 endif
 
+let g:NERDTreeWinPos = "right"
 
 " golang
 let g:go_fmt_fail_silently = 0
