@@ -27,12 +27,14 @@ let g:ale_set_quickfix = 1
 let g:ale_linters = {
 \    'go': ['gopls'],
 \    'python': ['pylsp'],
+\    'javascript': ['eslint'],
 \    'sh': ['shellcheck'],
 \}
 
 let g:ale_fixers = {
 \    'go': ['gopls'],
 \    'python': ['ruff'],
+\    'javascript': ['eslint'],
 \    'sh': ['shellcheck'],
 \    '*': ['remove_trailing_lines', 'trim_whitespace'],
 \}
@@ -71,17 +73,19 @@ let g:go_auto_sameids = 0
 set laststatus=2
 call plug#end()            " required
 
-" KEY BINDINGS AND REMAPS
+function SplitOpenTerm()
+    :vnew
+    :term
+endfunction
 
+" KEY BINDINGS AND REMAPS
+nmap <leader>nt :call SplitOpenTerm()<CR>
 nmap <leader>i] <Plug>(ale_previous_wrap)
 nmap <leader>i[ <Plug>(ale_next_wrap)
 nmap K <Plug>(ale_hover)
 nmap <leader>gd <Plug>(ale_go_to_definition)
 nmap <leader>gr <Plug>(ale_find_references)
 nmap <leader>rn <Plug>(ale_rename)
-
-"" Organize imports
-nmap <leader>OR :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
 
 " Search selected text in directory
 vnoremap <leader>ss :call VisualSelection('gv', '')<CR>
