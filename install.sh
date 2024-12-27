@@ -5,6 +5,7 @@ DEB_PKGS=(
     "zsh"
     "htop"
     "neovim"
+    "python3-neovim"
     "build-essential"
     "cmake"
     "python3-dev"
@@ -14,13 +15,13 @@ RH_PKGS=(
     "git"
     "zsh"
     "neovim"
+    "python3-neovim"
     "@development-tools"
 )
 
 
 declare -A DOTFILES_MAP
-DOTFILES_MAP[".vimrc"]="$HOME/.vimrc"
-DOTFILES_MAP["init.vim"]="$HOME/.config/.vimrc"
+DOTFILES_MAP["init.vim"]="$HOME/.config/nvim/init.vim"
 DOTFILES_MAP["alacritty.toml"]="$HOME/.config/alacritty/alacritty.toml"
 DOTFILES_MAP[".zshrc"]="$HOME/.zshrc"
 DOTFILES_MAP[".zsh_env"]="$HOME/.zsh_env"
