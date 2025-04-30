@@ -19,7 +19,7 @@ google() {
 alias "??"=google
 
 alias ipinfo='(){ curl "https://ipinfo.io/$1" }'
-alias new_tmux='(){ tmux new-session -t $1 }'
+alias new_tmux='(){ tmux new-session -s $1 }'
 
 alias vim="nvim"
 alias vi="nvim"
