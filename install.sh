@@ -21,7 +21,7 @@ RH_PKGS=(
 
 
 declare -A DOTFILES_MAP
-DOTFILES_MAP["init.vim"]="$HOME/.config/nvim/init.vim"
+DOTFILES_MAP["nvim"]="$HOME/.config/nvim"
 DOTFILES_MAP["alacritty.toml"]="$HOME/.config/alacritty/alacritty.toml"
 DOTFILES_MAP[".zshrc"]="$HOME/.zshrc"
 DOTFILES_MAP[".zsh_env"]="$HOME/.zsh_env"
@@ -99,14 +99,7 @@ main() {
 
     create_symlinks
 
-    echo "installing miscellaneous tools"
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install
-
-    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-
-    vim +PlugInstall! +qall
+    echo "Neovim will require installing LSPs to work properly"
 
     return 0
 }
