@@ -26,7 +26,7 @@ vim.g.maplocalleader = " "
 require("lazy").setup({
     spec = {
         -- import your plugins
-        { "catppuccin/nvim", config = function() vim.cmd.colorscheme "catppuccin-mocha" end },
+        -- { "catppuccin/nvim", config = function() vim.cmd.colorscheme "catppuccin-mocha" end },
         { import = "gsilvapt.plugins" },
     },
     -- automatically check for plugin updates

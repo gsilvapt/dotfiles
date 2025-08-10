@@ -5,12 +5,39 @@
 [commit]
 	gpgsign = true
 [core]
-	editor = vim
+    editor = nvim
+    fsmonitor = true
+    untrackedCached = treu
+    excludesfile = ~/.gitignore
 [gui]
-	editor = vim
-	historybrowser = gitk
+    editor = nvim
+    historybrowser = gitk
 [diff]
-	tool = xxdiff
+    tool = xxdiff
+    algorithm = histogram
+    colorMoved = plain
+    mnemonicPrefix = true
+    renames = true
+[branch]
+    sort = -committerdate
+[tag]
+    sort = version:refname
+[column]
+    ui = auto
+[help]
+    autocorrect = prompt
+[push]
+    default = simple
+    autoSetupRemote = true
+    followTags = true
+[fetch]
+    prune = true
+    pruneTags = true
+    all = true
+[rebase]
+    autoSquash = true
+    autoStash = true
+    updateRefs = true
 [merge]
 	tool = xxdiff
 
