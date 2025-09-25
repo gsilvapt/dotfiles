@@ -2,8 +2,8 @@
 	email = gustavosantaremsilva@gmail.com
 	name = Gustavo Silva
 	signingkey = 61814CB00D39901E
-[commit]
-	gpgsign = true
+[init]
+    defaultBranch = main
 [core]
     editor = nvim
     fsmonitor = true
@@ -39,5 +39,10 @@
     autoStash = true
     updateRefs = true
 [merge]
-	tool = xxdiff
-
+    tool = xxdiff
+[commit]
+    gpgsign = true
+    verbose = true
+[rerere]
+    enabled = true
+    autoupdate = true

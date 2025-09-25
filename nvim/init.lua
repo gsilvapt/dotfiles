@@ -1,7 +1,6 @@
 require("gsilvapt")
 
 -- Options
-vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
 vim.opt.linebreak = true
@@ -15,15 +14,6 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.colorcolumn = "120"
--- Modify tabs for JS/TS/HTML files
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = {"*.tsx", "*.js", "*.html"},
-    callback = function()
-        vim.opt.tabstop = 2
-        vim.opt.softtabstop = 2
-        vim.opt.shiftwidth = 2
-    end
-})
 
 
 -- Custom key bindings for movement/shortcuts
@@ -53,6 +43,23 @@ vim.keymap.set("n", "<Leader>dp", vim.diagnostic.goto_prev, opts)
 
 vim.keymap.set('n', '<leader>cc', '<cmd>ClaudeCode<CR>', { desc = 'Toggle Claude Code' })
 
-vim.cmd.colorscheme 'solarized-osaka'
+vim.cmd.colorscheme 'catppuccin-mocha'
 vim.opt.background = 'dark'
-vim.cmd.foldmethod = 'syntax'
+vim.opt.foldenable = true
+vim.opt.foldmethod = 'syntax'
+
+vim.lsp.enable({
+    'gopls',
+    'lua_ls',
+    'pyright',
+    'terraformls',
+    'rust_analyzer',
+    'eslint',
+    'tsp_server',
+    'ts_ls',
+})
+
+
+vim.lsp.config("*", {
+    root_markers = { '.git' },
+})
