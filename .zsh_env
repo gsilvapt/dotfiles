@@ -12,3 +12,4 @@ export TEMPLATES="$DOTFILES/templates"
 
 export GPG_TTY=$(tty) # bloody fix for GPG to work 
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
+export HELIX_RUNTIME=~/helix/runtime
