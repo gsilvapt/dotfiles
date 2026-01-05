@@ -6,6 +6,12 @@ export GOPATH=$HOME/go
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$HOME/.local/lua-language-server/bin
+# Android/Java stuff
+export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
+export PATH="${HOME}/Library/Android/sdk/tools:${HOME}/Library/Android/sdk/platform-tools:${PATH}"
+
+# nvm and its node versions
+export PATH="$NVM_DIR/versions/node/$(nvm version)/bin:$PATH"
 
 export DOTFILES="$HOME/Documents/github.com/dotfiles"
 export TEMPLATES="$DOTFILES/templates"
@@ -13,3 +19,14 @@ export TEMPLATES="$DOTFILES/templates"
 export GPG_TTY=$(tty) # bloody fix for GPG to work 
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
 export HELIX_RUNTIME=~/helix/runtime
+
+[ -d ~/.scripts ] && export PATH=$PATH:$HOME/.scripts/
+
+source <(fzf --zsh)
+source ~/.scripts/auto_source_env
+
+chpwd() {
+    auto_source_env
+}
+
+export EDITOR=nvim

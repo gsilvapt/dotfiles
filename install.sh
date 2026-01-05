@@ -23,9 +23,9 @@ RH_PKGS=(
 declare -A DOTFILES_MAP
 DOTFILES_MAP["nvim"]="$HOME/.config/nvim"
 DOTFILES_MAP["alacritty.toml"]="$HOME/.config/alacritty/alacritty.toml"
-DOTFILES_MAP[".zshrc"]="$HOME/.zshrc"
-DOTFILES_MAP[".zsh_env"]="$HOME/.zsh_env"
-DOTFILES_MAP[".zsh_aliases"]="$HOME/.zsh_aliases"
+DOTFILES_MAP["zsh/rc"]="$HOME/.zshrc"
+DOTFILES_MAP["zsh/env"]="$HOME/.zsh_env"
+DOTFILES_MAP["zsh/aliases"]="$HOME/.zsh_aliases"
 DOTFILES_MAP[".tmux.conf"]="$HOME/.tmux.conf"
 DOTFILES_MAP[".gitconfig"]="$HOME/.gitconfig"
 DOTFILES_MAP[".lynx.cfg"]="$HOME/.lynx.cfg"

@@ -6,3 +6,7 @@ formatter = { command = "goimports" }
 [[language]]
 name = "python"
 auto-format = true
+
+[[language]]
+name = "javascript"
+auto-format = false

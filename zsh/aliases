@@ -18,13 +18,14 @@ google() {
 }
 alias "??"=google
 
+alias set_personal='git config --local user.signingkey 61814CB00D39901E && git config --local user.email gustavosantaremsilva@gmail.com'
+
 alias ipinfo='(){ curl "https://ipinfo.io/$1" }'
 alias new_tmux='(){ tmux new-session -s $1 }'
 
 alias vim="nvim"
 alias vi="nvim"
-alias pbcopy='xclip -selection clipboard'
-alias pbpaste='xclip -selection clipboard -o'
+alias npm="pnpm"
 alias rustscan='docker run -it --rm --name rustscan rustscan/rustscan:1.10.0'
 alias wpscan='docker run -it --rm --name wpscan wpscanteam/wpscan'
 alias amass='docker run -v ~/:/.config/amass/ -it --rm --name amass caffix/amass'

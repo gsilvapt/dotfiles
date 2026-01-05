@@ -20,3 +20,12 @@ C-g = [
   ":redraw",
   ":reload-all"
 ]
+
+"^" = "goto_first_nonwhitespace"
+"$" = "goto_line_end"
+"0" = "goto_line_start"
+
+[keys.select]
+"^" = "goto_first_nonwhitespace"
+"0" = "goto_line_start"
+"$" = "goto_line_end"
