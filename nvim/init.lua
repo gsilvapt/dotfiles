@@ -63,3 +63,13 @@ vim.lsp.enable({
 vim.lsp.config("*", {
     root_markers = { '.git' },
 })
+
+vim.api.nvim_create_autocmd('BufRead', {
+  group = vim.api.nvim_create_augroup('detect_mdx', { clear = true }),
+  desc = 'Set filetype for *.mdx files',
+  pattern = { '*.mdx' },
+  callback = function()
+    vim.cmd('set filetype=markdown')
+  end,
+})
+

@@ -21,6 +21,8 @@ RH_PKGS=(
 
 
 declare -A DOTFILES_MAP
+DOTFILES_MAP["zed"]="$HOME/.zed"
+DOTFILES_MAP["claude"]="$HOME/.claude"
 DOTFILES_MAP["nvim"]="$HOME/.config/nvim"
 DOTFILES_MAP["alacritty.toml"]="$HOME/.config/alacritty/alacritty.toml"
 DOTFILES_MAP["zsh/rc"]="$HOME/.zshrc"
@@ -94,6 +96,8 @@ main() {
     fi
 
     echo "preparing environment to symlink dotfiles"
+    mkdir -p "$HOME/.config/zed/"
+    mkdir -p "$HOME/.config/claude/"
     mkdir -p "$HOME/.config/nvim/"
     mkdir -p "$HOME/.config/alacritty/"
 
