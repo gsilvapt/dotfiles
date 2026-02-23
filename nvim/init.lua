@@ -43,22 +43,35 @@ vim.keymap.set("n", "<Leader>dp", vim.diagnostic.goto_prev, opts)
 
 vim.keymap.set('n', '<leader>cc', '<cmd>ClaudeCode<CR>', { desc = 'Toggle Claude Code' })
 
+vim.lsp.config("*", {
+    root_markers = { '.git' },
+})
+
+local function quickfix()
+    vim.lsp.buf.code_action({
+        filter = function(a) return a.isPreferred end,
+        apply = true
+    })
+end
+
+vim.keymap.set('n', '<leader>qf', quickfix, opts)
+
 vim.cmd.colorscheme 'catppuccin-mocha'
 vim.opt.background = 'dark'
 vim.opt.foldenable = true
 vim.opt.foldmethod = 'syntax'
 
 vim.lsp.enable({
+    'clangd',
+    'eslint',
     'gopls',
     'lua_ls',
     'pyright',
-    'terraformls',
     'rust_analyzer',
-    'eslint',
-    'tsp_server',
+    'terraformls',
     'ts_ls',
+    'tsp_server',
 })
-
 
 vim.lsp.config("*", {
     root_markers = { '.git' },
