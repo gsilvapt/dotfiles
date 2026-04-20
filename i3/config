@@ -1,0 +1,179 @@
+# i3 config file (v4)
+#
+# Mirrors the keybindings defined in ../.aerospace.toml so that the desktop UX
+# stays consistent between macOS (AeroSpace) and Linux (i3).
+#
+# Reference: https://i3wm.org/docs/userguide.html
+
+# --------------------------------------------------------------------------
+# Modifier
+# --------------------------------------------------------------------------
+# AeroSpace uses `alt` for its main binding mode. Mod1 == Alt.
+set $mod Mod1
+
+# --------------------------------------------------------------------------
+# Font
+# --------------------------------------------------------------------------
+font pango:monospace 10
+
+# --------------------------------------------------------------------------
+# Gaps (requires i3-gaps, default on modern Debian/Fedora i3 packages)
+# Matches the AeroSpace [gaps] block (inner/outer 20).
+# --------------------------------------------------------------------------
+gaps inner 20
+gaps outer 20
+
+# --------------------------------------------------------------------------
+# Workspaces
+# AeroSpace declares persistent-workspaces = ["1", "2", "T", "M"].
+# i3 has no native "persistent" concept; these workspaces are simply created
+# on demand. Named workspaces T and M are referenced by number to allow for
+# clean switching.
+# --------------------------------------------------------------------------
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $wsT "T"
+set $wsM "M"
+
+# --------------------------------------------------------------------------
+# Launchers / basic window management
+# --------------------------------------------------------------------------
+# Terminal: ghostty to match ghostty.config in this repo.
+bindsym $mod+Return exec ghostty
+
+# Application launcher
+bindsym $mod+d exec dmenu_run
+
+# Kill focused window
+bindsym $mod+Shift+q kill
+
+# Reload / restart / exit i3
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit i3?' -B 'Yes' 'i3-msg exit'"
+
+# --------------------------------------------------------------------------
+# Layout toggles (maps to AeroSpace: alt-slash, alt-comma)
+# --------------------------------------------------------------------------
+# alt-slash  = 'layout tiles horizontal vertical'  -> toggle split orientation
+bindsym $mod+slash layout toggle split
+# alt-comma  = 'layout accordion horizontal vertical' -> closest: tabbed layout
+bindsym $mod+comma layout tabbed
+
+# Toggle floating
+bindsym $mod+Shift+space floating toggle
+
+# Fullscreen
+bindsym $mod+f fullscreen toggle
+
+# --------------------------------------------------------------------------
+# Focus (alt-h/j/k/l)
+# --------------------------------------------------------------------------
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# --------------------------------------------------------------------------
+# Move focused window (alt-shift-h/j/k/l)
+# --------------------------------------------------------------------------
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# --------------------------------------------------------------------------
+# Resize (alt-minus, alt-equal)
+# AeroSpace `resize smart` adjusts along the split axis; i3 needs explicit
+# width/height, so we approximate by resizing width.
+# --------------------------------------------------------------------------
+bindsym $mod+minus resize shrink width 50 px or 5 ppt
+bindsym $mod+equal resize grow   width 50 px or 5 ppt
+
+# --------------------------------------------------------------------------
+# Workspace switching (alt-1..5, alt-t, alt-m)
+# --------------------------------------------------------------------------
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+t workspace $wsT
+bindsym $mod+m workspace $wsM
+
+# --------------------------------------------------------------------------
+# Move container to workspace + follow focus (ctrl-alt-1..5, ctrl-alt-t, ctrl-alt-m)
+# Mirrors AeroSpace's `--focus-follows-window` by chaining `workspace` after move.
+# --------------------------------------------------------------------------
+bindsym Ctrl+$mod+1 move container to workspace $ws1; workspace $ws1
+bindsym Ctrl+$mod+2 move container to workspace $ws2; workspace $ws2
+bindsym Ctrl+$mod+3 move container to workspace $ws3; workspace $ws3
+bindsym Ctrl+$mod+4 move container to workspace $ws4; workspace $ws4
+bindsym Ctrl+$mod+5 move container to workspace $ws5; workspace $ws5
+bindsym Ctrl+$mod+t move container to workspace $wsT; workspace $wsT
+bindsym Ctrl+$mod+m move container to workspace $wsM; workspace $wsM
+
+# --------------------------------------------------------------------------
+# Workspace back-and-forth / move workspace to next monitor
+# --------------------------------------------------------------------------
+# alt-tab = 'workspace-back-and-forth'
+bindsym $mod+Tab workspace back_and_forth
+# alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+bindsym $mod+Shift+Tab move workspace to output next
+
+# Enable back-and-forth semantics for repeated workspace switches
+workspace_auto_back_and_forth yes
+
+# --------------------------------------------------------------------------
+# Service mode (alt-shift-semicolon -> 'mode service')
+# Mirrors AeroSpace's service binding mode.
+# --------------------------------------------------------------------------
+bindsym $mod+Shift+semicolon mode "service"
+
+mode "service" {
+    # esc = ['reload-config', 'mode main']
+    bindsym Escape      reload; mode "default"
+
+    # r = ['flatten-workspace-tree', 'mode main']  -> reset splits to default
+    bindsym r           layout default; mode "default"
+
+    # f = ['layout floating tiling', 'mode main']  -> toggle floating
+    bindsym f           floating toggle; mode "default"
+
+    # enter = ['macos-native-fullscreen']  -> closest: fullscreen toggle
+    bindsym Return      fullscreen toggle; mode "default"
+
+    # TODO: AeroSpace's `close-all-windows-but-current` has no direct i3
+    # equivalent. Implementing it would require an i3-msg + jq helper script
+    # to enumerate sibling windows on the focused workspace and kill each.
+    # Intentionally left unbound.
+    # bindsym BackSpace <custom-script>; mode "default"
+
+    # join-with {left,down,up,right} -> closest i3 analogue: split before moving
+    bindsym $mod+Shift+h split h; move left;  mode "default"
+    bindsym $mod+Shift+j split v; move down;  mode "default"
+    bindsym $mod+Shift+k split v; move up;    mode "default"
+    bindsym $mod+Shift+l split h; move right; mode "default"
+
+    # Exit service mode
+    bindsym $mod+Shift+semicolon mode "default"
+}
+
+# --------------------------------------------------------------------------
+# Window assignments (maps AeroSpace on-window-detected rules)
+# Class names may need tuning via `xprop` on your system.
+# --------------------------------------------------------------------------
+assign [class="(?i)brave-browser"]       $ws1
+assign [class="(?i)firefox"]             $ws1
+assign [class="(?i)todoist"]             $wsM
+assign [class="com.mitchellh.ghostty"]   $wsT
+
+# --------------------------------------------------------------------------
+# Status bar
+# --------------------------------------------------------------------------
+bar {
+    status_command i3status
+}

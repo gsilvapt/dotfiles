@@ -9,6 +9,10 @@ DEB_PKGS=(
     "build-essential"
     "cmake"
     "python3-dev"
+    "i3"
+    "i3status"
+    "dmenu"
+    "feh"
 )
 
 RH_PKGS=(
@@ -32,7 +36,20 @@ DOTFILES_MAP[".tmux.conf"]="$HOME/.tmux.conf"
 DOTFILES_MAP[".gitconfig"]="$HOME/.gitconfig"
 DOTFILES_MAP[".lynx.cfg"]="$HOME/.lynx.cfg"
 DOTFILES_MAP[".lynx.lss"]="$HOME/.lynx.lss"
+# AeroSpace config is version-controlled on every machine; only macOS
+# actually consumes it, but keeping the symlink cross-platform is harmless
+# and means the file stays in sync if you ever edit it from Linux.
+DOTFILES_MAP[".aerospace.toml"]="$HOME/.aerospace.toml"
 
+
+is_macos() {
+    [[ "$(uname)" == "Darwin" ]]
+}
+
+# On Linux systems we also manage the i3wm config.
+if ! is_macos; then
+    DOTFILES_MAP["i3/config"]="$HOME/.config/i3/config"
+fi
 
 get_pkg_manager() {
     if command -v apt &> /dev/null; then
@@ -61,6 +78,12 @@ install_pkgs() {
             ;;
         "dnf")
             sudo dnf update -y && sudo dnf install -y "${RH_PKGS[@]}"
+            return 0
+            ;;
+        "brew")
+            # Casks need `--cask`; the tap prefix in BREW_CASKS triggers
+            # `brew tap` implicitly on first install.
+            brew install --cask "${BREW_CASKS[@]}"
             return 0
             ;;
         *)
@@ -100,6 +123,9 @@ main() {
     mkdir -p "$HOME/.config/claude/"
     mkdir -p "$HOME/.config/nvim/"
     mkdir -p "$HOME/.config/alacritty/"
+    if ! is_macos; then
+        mkdir -p "$HOME/.config/i3/"
+    fi
 
     create_symlinks
 

@@ -56,7 +56,7 @@ end
 
 vim.keymap.set('n', '<leader>qf', quickfix, opts)
 
-vim.cmd.colorscheme 'solarized-osaka'
+vim.cmd.colorscheme 'catppuccin'
 vim.opt.background = 'dark'
 vim.opt.foldenable = true
 vim.opt.foldmethod = 'syntax'
