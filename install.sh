@@ -49,6 +49,7 @@ is_macos() {
 # On Linux systems we also manage the i3wm config.
 if ! is_macos; then
     DOTFILES_MAP["i3/config"]="$HOME/.config/i3/config"
+    DOTFILES_MAP["i3/i3status"]="$HOME/.config/i3status/config"
 fi
 
 get_pkg_manager() {
@@ -125,6 +126,7 @@ main() {
     mkdir -p "$HOME/.config/alacritty/"
     if ! is_macos; then
         mkdir -p "$HOME/.config/i3/"
+        mkdir -p "$HOME/.config/i3status/"
     fi
 
     create_symlinks

@@ -177,3 +177,15 @@ assign [class="com.mitchellh.ghostty"]   $wsT
 bar {
     status_command i3status
 }
+
+# --------------------------------------------------------------------------
+# Enable geoclue2 agent for location services (redshift)
+# --------------------------------------------------------------------------
+exec --no-startup-id /usr/libexec/geoclue-2.0/demos/agent
+
+# --------------------------------------------------------------------------
+# Volume controls
+# --------------------------------------------------------------------------
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
