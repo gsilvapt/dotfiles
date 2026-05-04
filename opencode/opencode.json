@@ -3,6 +3,12 @@
   "default_agent": "plan",
   "permission": {
       "read": "allow",
+      "webfetch": "allow",
+      "bash": {
+          "* -h": "allow",
+          "* --help": "allow",
+          "*": "ask"
+      },
       "edit": {
           "*": "ask"
       }

@@ -26,7 +26,8 @@ RH_PKGS=(
 
 declare -A DOTFILES_MAP
 DOTFILES_MAP["zed"]="$HOME/.zed"
-DOTFILES_MAP["claude"]="$HOME/.claude"
+DOTFILES_MAP["opencode/opencode.json"]="$HOME/.config/opencode/opencode.json"
+DOTFILES_MAP["claude/settings.json"]="$HOME/.claude/settings.json"
 DOTFILES_MAP["nvim"]="$HOME/.config/nvim"
 DOTFILES_MAP["alacritty.toml"]="$HOME/.config/alacritty/alacritty.toml"
 DOTFILES_MAP["zsh/rc"]="$HOME/.zshrc"
@@ -121,7 +122,8 @@ main() {
 
     echo "preparing environment to symlink dotfiles"
     mkdir -p "$HOME/.config/zed/"
-    mkdir -p "$HOME/.config/claude/"
+    mkdir -p "$HOME/.config/opencode/"
+    mkdir -p "$HOME/.claude/"
     mkdir -p "$HOME/.config/nvim/"
     mkdir -p "$HOME/.config/alacritty/"
     if ! is_macos; then
