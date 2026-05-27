@@ -15,6 +15,9 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.colorcolumn = "120"
 
+vim.opt.list = true
+vim.opt.listchars = { tab = "▸ ", eol = "¬", trail = "·", nbsp = "␣" }
+
 
 -- Custom key bindings for movement/shortcuts
 vim.g.mapleader = "\\"
@@ -56,10 +59,8 @@ end
 
 vim.keymap.set('n', '<leader>qf', quickfix, opts)
 
-vim.cmd.colorscheme 'catppuccin'
+vim.cmd.colorscheme 'monokai'
 vim.opt.background = 'dark'
-vim.opt.foldenable = true
-vim.opt.foldmethod = 'syntax'
 
 vim.lsp.enable({
     'clangd',
@@ -78,11 +79,11 @@ vim.lsp.config("*", {
 })
 
 vim.api.nvim_create_autocmd('BufRead', {
-  group = vim.api.nvim_create_augroup('detect_mdx', { clear = true }),
-  desc = 'Set filetype for *.mdx files',
-  pattern = { '*.mdx' },
-  callback = function()
-    vim.cmd('set filetype=markdown')
-  end,
+    group = vim.api.nvim_create_augroup('detect_mdx', { clear = true }),
+    desc = 'Set filetype for *.mdx files',
+    pattern = { '*.mdx' },
+    callback = function()
+        vim.cmd('set filetype=markdown')
+    end,
 })
 
