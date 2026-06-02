@@ -72,12 +72,16 @@ plugins=(
     git
     zsh-syntax-highlighting
     zsh-autosuggestions
-    uv
+    aws
+    kube-ps1
 )
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+
+RPROMPT='$(aws_prompt_info)'"$RPROMPT"
+RPROMPT='$(kube_ps1)'"$RPROMPT"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -103,6 +107,7 @@ source $ZSH/oh-my-zsh.sh
 # Aliases
 [ -f ~/.zsh_aliases ] && source ~/.zsh_aliases
 [ -f ~/.zsh_env ] && source ~/.zsh_env
+[ -f ~/.zsh_kube ] && source ~/.zsh_kube
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.rrlogs.zsh ] && source ~/.rrlogs.zsh
 

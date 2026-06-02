@@ -10,16 +10,23 @@
   "feedbackSurveyState": {
     "lastShownTime": 1754040862617
   },
-  "permission": {
-    "read": "allow",
-    "webfetch": "allow",
-    "bash": {
-      "* -h": "allow",
-      "* --help": "allow",
-      "*": "ask"
-    },
-    "edit": {
-      "*": "ask"
-    }
+  "permissions": {
+    "allow": [
+      "Read",
+      "WebFetch",
+      "Bash(go build)",
+      "Bash(go build:*)",
+      "Bash(go test)",
+      "Bash(go test:*)",
+      "Bash(*:-h)",
+      "Bash(*:--help)"
+    ],
+    "ask": [
+      "Edit",
+      "Write",
+      "MultiEdit",
+      "NotebookEdit",
+      "Bash"
+    ]
   }
 }

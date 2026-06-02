@@ -5,9 +5,9 @@
       "read": "allow",
       "webfetch": "allow",
       "bash": {
+          "*": "ask",
           "* -h": "allow",
-          "* --help": "allow",
-          "*": "ask"
+          "* --help": "allow"
       },
       "edit": {
           "*": "ask"
