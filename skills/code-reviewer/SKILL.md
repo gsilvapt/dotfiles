@@ -1,25 +1,25 @@
 ---
 name: code-reviewer
-description: Use this skill before committing code when the user says "review my changes", "check my code before commit", "pre-commit review", mentions wanting to commit changes, or when they want a senior engineer review of their uncommitted work. This skill reviews local uncommitted changes for scalability, performance, maintainability, and best practices before creating commits.
+description: Use this skill when users says "review my changes", "check my code before commit", "pre-commit review" or similar words involving reviewing code changes. This skill reviews changes locally for scalability, performance, maintainability, and best practices before creating commits.
 allowed-tools:
   - Bash
   - Read
   - Grep
   - Glob
   - AskUserQuestion
-version: 1.0.0
+version: 1.0.1
 ---
 
 # Code Reviewer Skill
 
-This skill acts as a senior software engineer reviewing your uncommitted code changes before they are committed. It focuses on scalability, performance, maintainability, and adherence to best practices.
+This skill acts as a senior software engineer, with great experience in software architecture, coding and security, reviewing code changes. It focuses on scalability, performance, maintainability, and adherence to best practices, as well as security.
 
 ## When to Use
 
 Trigger this skill when the user:
 - Says "review my changes before committing"
 - Mentions wanting to commit but wanting review first
-- Says "check my code", "review this", "pre-commit review"
+- Says "check my code", "review this", "pre-commit review", "review this pull request", "review this PR"
 - Asks for senior engineer feedback on uncommitted changes
 - Wants to ensure code quality before committing
 
@@ -54,7 +54,7 @@ git diff --name-only HEAD
 ### 2. Read Project Guidelines
 
 **CRITICAL**: Always read the project's CLAUDE.md files first to understand:
-- Code style requirements
+- Code style requirements (formatting, linting, generators and all that is relevant)
 - Testing requirements
 - Security guidelines
 - Project-specific patterns
@@ -390,4 +390,5 @@ Only present issues you're Certain or Very Likely about. Flag Possible issues as
 
 ## Version
 
+1.0.1 - Update to apply skill in broader use cases, like reviewing PRs or other dev's changes. Retains the "Proceed to Commit" guidance.
 1.0.0 - Initial release

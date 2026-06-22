@@ -109,7 +109,7 @@ RPROMPT='$(kube_ps1)'"$RPROMPT"
 [ -f ~/.zsh_env ] && source ~/.zsh_env
 [ -f ~/.zsh_kube ] && source ~/.zsh_kube
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f ~/.rrlogs.zsh ] && source ~/.rrlogs.zsh
+[ -f ~/.scripts ] && export PATH="$(HOME)/scripts/:$PATH" 
 
 . "$HOME/.local/bin/env"
 . "$HOME/.cargo/env"
