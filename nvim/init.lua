@@ -13,6 +13,7 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
+vim.opt.cursorline = true
 vim.opt.colorcolumn = "120"
 
 vim.opt.list = true
@@ -59,7 +60,7 @@ end
 
 vim.keymap.set('n', '<leader>qf', quickfix, opts)
 
-vim.cmd.colorscheme 'monokai'
+vim.cmd.colorscheme 'doom-one'
 vim.opt.background = 'dark'
 
 vim.lsp.enable({
