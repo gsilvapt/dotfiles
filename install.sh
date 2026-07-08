@@ -28,6 +28,7 @@ declare -A DOTFILES_MAP
 DOTFILES_MAP["zed"]="$HOME/.zed"
 DOTFILES_MAP["opencode/opencode.json"]="$HOME/.config/opencode/opencode.json"
 DOTFILES_MAP["claude/settings.json"]="$HOME/.claude/settings.json"
+DOTFILES_MAP["claude/skills"]="$HOME/.claude/skills"
 DOTFILES_MAP["nvim"]="$HOME/.config/nvim"
 DOTFILES_MAP["alacritty.toml"]="$HOME/.config/alacritty/alacritty.toml"
 DOTFILES_MAP["zsh/rc"]="$HOME/.zshrc"

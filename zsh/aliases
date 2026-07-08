@@ -32,4 +32,3 @@ alias amass='docker run -v ~/:/.config/amass/ -it --rm --name amass caffix/amass
 alias impacket='docker run -it --rm --name impacket "impacket:latest"'
 alias sqlmap='python ~/tools/sqlmap-dev/'
 alias k='kubectl'
-alias docker='podman'
