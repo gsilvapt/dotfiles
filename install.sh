@@ -21,6 +21,15 @@ RH_PKGS=(
     "neovim"
     "python3-neovim"
     "@development-tools"
+    "i3"
+    "i3status"
+    "dmenu"
+    "feh"
+)
+
+# macOS-only packages. AeroSpace ships via a Homebrew cask tap.
+BREW_CASKS=(
+    "nikitabobko/tap/aerospace"
 )
 
 
@@ -28,7 +37,7 @@ declare -A DOTFILES_MAP
 DOTFILES_MAP["zed"]="$HOME/.zed"
 DOTFILES_MAP["opencode/opencode.json"]="$HOME/.config/opencode/opencode.json"
 DOTFILES_MAP["claude/settings.json"]="$HOME/.claude/settings.json"
-DOTFILES_MAP["claude/skills"]="$HOME/.claude/skills"
+DOTFILES_MAP["skills"]="$HOME/.claude/skills"
 DOTFILES_MAP["nvim"]="$HOME/.config/nvim"
 DOTFILES_MAP["alacritty.toml"]="$HOME/.config/alacritty/alacritty.toml"
 DOTFILES_MAP["zsh/rc"]="$HOME/.zshrc"
@@ -42,6 +51,7 @@ DOTFILES_MAP[".lynx.lss"]="$HOME/.lynx.lss"
 # actually consumes it, but keeping the symlink cross-platform is harmless
 # and means the file stays in sync if you ever edit it from Linux.
 DOTFILES_MAP[".aerospace.toml"]="$HOME/.aerospace.toml"
+DOTFILES_MAP["scripts"]="$HOME/"
 
 
 is_macos() {

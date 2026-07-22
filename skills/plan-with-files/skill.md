@@ -8,6 +8,7 @@ description: Transforms workflow to use persistent markdown files for planning, 
 Use persistent markdown files as your "working memory on disk." For any
 non-trivial task, create `plan.md` to track progress and `notes.md` to store
 findings — keep large content in files, not in context.
+Make the plan extremely concise; Sacrifice grammar for the sake of concision.
 
 ## Workflow
 
