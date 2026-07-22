@@ -7,14 +7,21 @@ import subprocess
 import sys
 
 from collections import defaultdict
+from dataclasses import dataclass
 
 
-global debug
-debug = False
-
-GITHUB_ORGS = ['runreveal']
+@dataclass
+class PullRequest:
+    author: str
+    url: str
+    title: str
+    merged_at: str
 
 DATE_14D = (dt.datetime.now() - dt.timedelta(days=14))
+GITHUB_ORGS = ['runreveal']
+
+debug = False
+active_repos = list()
 
 
 def print_debug(msg: str):
@@ -43,7 +50,6 @@ def parse_start_date(date: str) -> dt.datetime:
 
 
 def get_active_repos() -> list[str]:
-    active_repos = list()
     for org in GITHUB_ORGS:
         cmd = subprocess.run(['gh', 'repo', 'list', org, '--limit', '200', '--no-archived', '--json', 'name,pushedAt,defaultBranchRef', '--jq', f'[.[] | select(.defaultBranchRef.name != "") | select(.pushedAt > "{DATE_14D.strftime("%Y-%m-%d")}") | .name]'],
                                 capture_output=True, text=True)
@@ -58,11 +64,10 @@ def get_active_repos() -> list[str]:
     return active_repos
 
 
-def get_merged_prs(date: dt.datetime) -> dict[str, dict[str, list[tuple[str, str, str]]]]:
+def get_merged_prs(date: dt.datetime) -> dict[str, dict[str, list[PullRequest]]]:
     now = dt.datetime.now()
-    merged_prs: dict[str, dict[str, list[tuple[str, str, str]]]] = defaultdict(lambda: defaultdict(list))
+    merged_prs: dict[str, dict[str, list[PullRequest]]] = defaultdict(lambda: defaultdict(list))
 
-    active_repos = get_active_repos()
     if not active_repos:
         return merged_prs
 
@@ -71,7 +76,7 @@ def get_merged_prs(date: dt.datetime) -> dict[str, dict[str, list[tuple[str, str
     for org in GITHUB_ORGS:
         cmd = subprocess.run(['gh', 'api', '-X', 'GET', 'search/issues', '-f',
                                  f'q=org:{org} is:pr is:merged merged:{date.strftime("%Y-%m-%dT%H:%M:%SZ")}..{now.strftime("%Y-%m-%dT%H:%M:%SZ")}', '-F', 'per_page=100',
-                                 '--jq', '.items[] | {repo: (.repository_url | split("/") | last), number, title, author: .user.login, url: .html_url}'],
+                                 '--jq', '.items[] | {repo: (.repository_url | split("/") | last), number, title, author: .user.login, url: .html_url, merged_at: .pull_request.merged_at}'],
                                  capture_output=True, text=True)
         if cmd.returncode != 0 and cmd.stderr != '':
             print(f'failed getting merged prs from {org}: {cmd.stderr}')
@@ -85,12 +90,12 @@ def get_merged_prs(date: dt.datetime) -> dict[str, dict[str, list[tuple[str, str
             response = json.loads(change)
             repo_name = response['repo']
             if repo_name in active_repo_set:
-                merged_prs[org][repo_name].append((response['author'], response['url'], response['title']))
+                merged_prs[org][repo_name].append(PullRequest(response['author'], response['url'], response['title'], response['merged_at']))
 
     return merged_prs
 
 
-def pretty_print(merged_prs: dict[str, dict[str, list[tuple[str, str, str]]]]):
+def pretty_print(merged_prs: dict[str, dict[str, list[PullRequest]]]):
     if not merged_prs:
         print('No merged PRs found in time window')
         return
@@ -105,8 +110,8 @@ def pretty_print(merged_prs: dict[str, dict[str, list[tuple[str, str, str]]]]):
                 print('\t No merged in time window')
                 continue
 
-            for (author, url, title) in prs:
-                print(f'\t * {title} ({author}) - {url}')
+            for pr in prs:
+                print(f'\t * [{pr.merged_at}] {pr.title} ({pr.author}) - {pr.url}')
 
             print('\n')
 
@@ -138,8 +143,8 @@ def main():
         print(e)
         sys.exit(1)
 
+    active_repos = get_active_repos()
     merged_prs = get_merged_prs(date)
-
     pretty_print(merged_prs)
 
     sys.exit(0)
