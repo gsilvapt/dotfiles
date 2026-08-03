@@ -60,7 +60,7 @@ end
 
 vim.keymap.set('n', '<leader>qf', quickfix, opts)
 
-vim.cmd.colorscheme 'catppuccin-mocha'
+vim.cmd.colorscheme 'unokai'
 vim.opt.background = 'dark'
 
 vim.lsp.enable({
