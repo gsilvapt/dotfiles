@@ -1,5 +1,5 @@
 ---
-name: commiter
+name: committer
 description: Generate concise, conceptual commit messages following conventional commits format (https://www.conventionalcommits.org). Use this skill when preparing to commit changes, when asked to "create a commit message", or when running git commit operations. Messages focus on the conceptual "what and why" without file names, line numbers, or implementation details.
 ---
 
@@ -54,6 +54,13 @@ When unsure, examine the directory structure or omit the scope entirely.
 Add `!` after type/scope for breaking changes:
 ```
 feat(api)!: change authentication response format
+```
+
+### Ticket References (Optional Footer)
+If a Linear/Jira ticket ID is given or known (e.g. `RUN-3046`), add it as a
+footer line using `Fixes <TICKET-ID>` — not the bare ID on its own:
+```
+Fixes RUN-3046
 ```
 
 ## Writing Style

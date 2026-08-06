@@ -84,9 +84,22 @@ gh pr create --title "feat(scope): brief description" --body "$(cat <<'EOF'
 
 This section contains the file names, functions and line ranges that hold the real logic changes.
 
-## Commits
-- Commit 1 headline (hyperlink to hash)
-- COmmit 2 headline (hyperlink to hash)
+## Commit History
+
+Paste `git log main..HEAD` output here (full hash, subject + body).
+Reviewers can read the narrative without clicking through.
+Never reference plan phases or internal tracking — describe the change and why.
+
+
+    full commit hash
+    feat(api): adds wtv to something
+
+    more context
+    ...
+
+    another full commit hash
+    ...
+
 
 ## Related Issues
 Fixes RUN-123
