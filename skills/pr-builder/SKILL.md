@@ -91,15 +91,15 @@ Reviewers can read the narrative without clicking through.
 Never reference plan phases or internal tracking — describe the change and why.
 
 
-    full commit hash
-    feat(api): adds wtv to something
+full commit hash
+> feat(api): adds wtv to something
+> 
+> more context
+...
 
-    more context
-    ...
-
-    another full commit hash
-    ...
-
+another full commit hash
+> ...
+> ...
 
 ## Related Issues
 Fixes RUN-123

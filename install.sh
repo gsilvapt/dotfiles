@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 DEB_PKGS=(
     "git"
@@ -37,7 +37,7 @@ declare -A DOTFILES_MAP
 DOTFILES_MAP["zed"]="$HOME/.zed"
 DOTFILES_MAP["opencode/opencode.json"]="$HOME/.config/opencode/opencode.json"
 DOTFILES_MAP["claude/settings.json"]="$HOME/.claude/settings.json"
-DOTFILES_MAP["skills"]="$HOME/.claude/skills"
+DOTFILES_MAP["pi/settings.json"]="$HOME/.pi/agent/settings.json"
 DOTFILES_MAP["nvim"]="$HOME/.config/nvim"
 DOTFILES_MAP["alacritty.toml"]="$HOME/.config/alacritty/alacritty.toml"
 DOTFILES_MAP["zsh/rc"]="$HOME/.zshrc"
@@ -113,6 +113,91 @@ create_symlinks() {
     done
 }
 
+install_skills() {
+    local skills_source="$(pwd)/skills"
+    local agents_skills="$HOME/.agents/skills"
+    local claude_skills="$HOME/.claude/skills"
+    local skill
+    local skill_name
+
+    mkdir -p "$agents_skills" "$claude_skills"
+
+    for skill in "$skills_source"/*; do
+        if [[ ! -f "$skill/SKILL.md" && ! -f "$skill/skill.md" ]]; then
+            continue
+        fi
+
+        skill_name="$(basename "$skill")"
+        ensure_skill_destination_available \
+            "$agents_skills/$skill_name" \
+            "$skill" || return 1
+        ensure_skill_destination_available \
+            "$claude_skills/$skill_name" \
+            "$skill" \
+            "$agents_skills/$skill_name" || return 1
+    done
+
+    remove_repository_skill_links "$claude_skills" "$skills_source" "$agents_skills"
+    remove_repository_skill_links "$agents_skills" "$skills_source"
+
+    for skill in "$skills_source"/*; do
+        if [[ ! -f "$skill/SKILL.md" && ! -f "$skill/skill.md" ]]; then
+            continue
+        fi
+
+        skill_name="$(basename "$skill")"
+        echo "installing $skill_name in $agents_skills"
+        ln -s "$skill" "$agents_skills/$skill_name" || return 1
+
+        echo "making $skill_name available in $claude_skills"
+        ln -s "$agents_skills/$skill_name" "$claude_skills/$skill_name" || return 1
+    done
+}
+
+ensure_skill_destination_available() {
+    local destination=$1
+    shift
+    local allowed_target
+
+    if [[ ! -e "$destination" && ! -L "$destination" ]]; then
+        return 0
+    fi
+
+    if [[ -L "$destination" ]]; then
+        for allowed_target in "$@"; do
+            if [[ "$(readlink "$destination")" == "$allowed_target" ]]; then
+                return 0
+            fi
+        done
+    fi
+
+    echo "refusing to replace existing skill at $destination"
+    return 1
+}
+
+remove_repository_skill_links() {
+    local destination_dir=$1
+    local skills_source=$2
+    local agents_skills=${3:-}
+    local destination
+    local target
+
+    for destination in "$destination_dir"/*; do
+        if [[ ! -L "$destination" ]]; then
+            continue
+        fi
+
+        target="$(readlink "$destination")"
+        if [[ "$target" == "$skills_source/"* ]]; then
+            rm "$destination"
+        elif [[ -n "$agents_skills" && "$target" == "$agents_skills/"* ]]; then
+            if [[ -L "$target" && "$(readlink "$target")" == "$skills_source/"* ]]; then
+                rm "$destination"
+            fi
+        fi
+    done
+}
+
 main() {
     skip_pkgs=false
     while [[ "$1" != "" ]]; do
@@ -135,6 +220,8 @@ main() {
     mkdir -p "$HOME/.config/zed/"
     mkdir -p "$HOME/.config/opencode/"
     mkdir -p "$HOME/.claude/"
+    mkdir -p "$HOME/.agents/"
+    mkdir -p "$HOME/.pi/agent/"
     mkdir -p "$HOME/.config/nvim/"
     mkdir -p "$HOME/.config/alacritty/"
     if ! is_macos; then
@@ -143,6 +230,7 @@ main() {
     fi
 
     create_symlinks
+    install_skills || return 1
 
     echo "Neovim will require installing LSPs to work properly"
 

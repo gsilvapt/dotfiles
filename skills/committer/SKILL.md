@@ -112,3 +112,4 @@ To create a commit message:
 - ❌ Past tense: "Added" → use "add" instead
 - ❌ Missing type: "add feature" → use "feat: add feature"
 - ❌ Uppercase description: "feat: Add feature" → use "feat: add feature"
+- ❌ Do not add made by agent comments in the commit messages.
