@@ -9,22 +9,26 @@
 
 ## Code Quality
 
-- Writing code: Write idiomatic, simple, maintainable code that is highly consistent with surrounding code. Optimize for the simplest, most intuitive solution.
 - Before writing new code: Search the codebase for existing utilities, helpers, and patterns. Reuse and extend what exists rather than inventing new abstractions unless they’re clearly reused.
+- Writing code: Write idiomatic, simple, maintainable code that is highly consistent with surrounding code. Optimize for the simplest, most intuitive solution.
 - Structuring code: Prefer the simplest design that is consistent with surrounding code. Favor fewer moving parts. Flag larger design opportunities separately.
 - Organizing code: Follow the step-down rule. Keep high-level behavior at the top and details below. In classes: constructor, then public API methods, then private helpers. Prefer top-down call flow when practical.
 - Editing code: No breadcrumbs. If you delete, move, or rename code, do not leave a comment in the old place.
 - Fixing code: Reason from first principles, find the root cause of an issue, and fix it. Don't apply band-aids on top.
 - Cleaning up: Clean up unused code ruthlessly. If a function no longer needs a parameter or a helper becomes unused, delete and update callers instead of letting junk linger. Never implement backward compatibility unless explicitly asked.
+- Verifying changes: Add or extend tests only for behavioral changes and bug fixes not already covered. Prefer small extensions to existing tests without weakening coverage. Run checks appropriate to the change and all required checks. Repeat or broaden them only when new changes, failures, or unresolved concerns justify it. Flag verification gaps.
+- Code comments: These exist to explain functionality and/or design decisions (why it's like this). Do not use comments to explain the code itself
 
 ## Collaboration
 
 - When review feedback is numbered, respond point-by-point and clearly mark what was addressed vs. deferred.
 - Never push or open pull requests without the user explicitly asking you to.
+- Make sure the preferred communication style is respected in these too.
 
 ## Communication
 
-- Be direct, technical, and intellectually honest. No praise, filler, or performative politeness.
+- Be concise, direct, technical, and intellectually honest. Lead with the answer. Use only the detail and formatting needed. No praise, filler, stock phrases, or performative politeness.
+- Use plain, precise language and concrete explanations. Prefer periods over semicolons, single dash over emdashes. Clarify non-obvious terms and connections. Don't sacrifice clarity for brevity.
 - If an idea is wrong or suboptimal, say so and explain why. Challenge assumptions and propose better alternatives.
 
 ## Skills

@@ -9,6 +9,18 @@ description: Gather comprehensive context when reviewing or creating pull reques
 
 Gather comprehensive context for pull requests by collecting git history, related issues, tests, and code changes to provide a complete understanding for review or creation.
 
+## Repository Instructions
+
+Before inspecting or describing changes, find and read the `AGENTS.md` and
+`CLAUDE.md` files that apply to the repository and each changed file. Search
+from the repository root through the changed files' directories so ignored or
+nested instruction files are not missed.
+
+Treat applicable repository instructions as authoritative, including when they
+conflict with user-provided instructions. More specific nested instructions
+take precedence over parent-directory instructions. Follow their guidance for
+commands, testing, generated files, formatting, and PR content.
+
 ## When to Use
 
 Use this skill when:
@@ -73,12 +85,34 @@ noise -- if you see it, something is misconfigured.
 
 ### 3. Create the PR
 
+Build the PR body with these rules:
+
+- Keep **Summary** to at most three short bullets. Use `Adds`, `Modifies`, and
+  `Removes` labels, including only the categories that apply. Describe the
+  branch's net effect rather than its implementation journey. Omit file-by-file
+  or commit-by-commit narration, test details, and internal planning context.
+- Under **Commit History**, list each commit as a bare full hash, one per line,
+  in chronological order. Underneath the hash, add the commit's contents prefixed
+  by `>` so GitHub highlights it as a quote. Generate the list with 
+  `git log --reverse --format='%H' main..HEAD`, replacing `main` with the actual
+  base branch.
+- Add **Breaking Changes** only when the branch introduces breaking changes.
+  Concisely state each break, who or what it affects, and the required migration
+  or operator action.
+- Add **Deployment Notes** only when users or operators must act before, during,
+  or after deployment. State the required action, timing, and verification. For
+  long-running or heavy migrations, flag the expected impact, recommend
+  monitoring progress, and explain how to verify successful completion.
+- The PR description should be short, yet concise and specific. Do not overdo it
+  the description which will make it hard for reviewers to read.
+
 ```bash
 # Create PR with gh CLI
 gh pr create --title "feat(scope): brief description" --body "$(cat <<'EOF'
 ## Summary
-- Bullet point 1
-- Bullet point 2
+- Adds: the new behavior or capability introduced by the branch.
+- Modifies: the existing behavior changed by the branch.
+- Removes: the behavior or capability removed by the branch.
 
 ## Review Focus
 
@@ -86,30 +120,15 @@ This section contains the file names, functions and line ranges that hold the re
 
 ## Commit History
 
-Paste `git log main..HEAD` output here (full hash, subject + body).
-Reviewers can read the narrative without clicking through.
-Never reference plan phases or internal tracking — describe the change and why.
-
-
 full commit hash
-> feat(api): adds wtv to something
-> 
-> more context
-...
+> pr body
 
 another full commit hash
-> ...
-> ...
+> pr body
 
 ## Related Issues
 Fixes RUN-123
 Fixes SENTRY-123
-
-## Breaking Changes
-- If any
-
-## Deployment Notes
-Any special deployment considerations
 EOF
 )"
 ```

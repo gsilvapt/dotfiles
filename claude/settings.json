@@ -1,15 +1,5 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "model": "sonnet[1m]",
-  "enabledPlugins": {
-    "typescript-lsp@claude-plugins-official": true,
-    "gopls-lsp@claude-plugins-official": true,
-    "lua-lsp@claude-plugins-official": true
-  },
-  "theme": "dark-daltonized",
-  "feedbackSurveyState": {
-    "lastShownTime": 1754040862617
-  },
   "permissions": {
     "allow": [
       "Read",
@@ -19,14 +9,46 @@
       "Bash(go test)",
       "Bash(go test:*)",
       "Bash(*:-h)",
-      "Bash(*:--help)"
+      "Bash(*:--help)",
+      "Bash(grep:*)",
+      "Bash(find:*)"
     ],
     "ask": [
-      "Edit",
-      "Write",
-      "MultiEdit",
-      "NotebookEdit",
-      "Bash"
+      "Bash(*kubectl*)",
+      "Bash(*terraform*)",
+      "Bash(*aws*)",
+      "Bash(*sudo*)"
     ]
+  },
+  "model": "opus[1m]",
+  "statusLine": {
+    "type": "command",
+    "command": "bash /Users/gsilvapt/.claude/statusline-command.sh"
+  },
+  "enabledPlugins": {
+    "typescript-lsp@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": true,
+    "ops@rr-skills": true,
+    "dev@rr-skills": false,
+    "pyright-lsp@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "rr-skills": {
+      "source": {
+        "source": "github",
+        "repo": "runreveal/skills"
+      }
+    }
+  },
+  "effortLevel": "medium",
+  "promptSuggestionEnabled": false,
+  "tui": "fullscreen",
+  "theme": "dark",
+  "editorMode": "normal",
+  "autoCompactEnabled": true,
+  "skipAutoPermissionPrompt": true,
+  "feedbackSurveyState": {
+    "lastShownTime": 1754040862617
   }
 }
