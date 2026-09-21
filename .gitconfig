@@ -9,15 +9,18 @@
     fsmonitor = true
     untrackedCached = treu
     excludesfile = ~/.gitignore
+    pager = delta
 [gui]
     editor = nvim
     historybrowser = gitk
-[diff]
-    tool = xxdiff
-    algorithm = histogram
-    colorMoved = plain
-    mnemonicPrefix = true
-    renames = true
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    dark = true      # or light = true, or omit for auto-detection
+
 [branch]
     sort = -committerdate
 [tag]
@@ -39,7 +42,7 @@
     autoStash = true
     updateRefs = true
 [merge]
-    tool = xxdiff
+    conflictStyle = zdiff3
 [commit]
     gpgsign = true
     verbose = true
