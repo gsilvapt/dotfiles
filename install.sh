@@ -33,27 +33,23 @@ RH_PKGS=(
 BREW_CASKS=(
     "nikitabobko/tap/aerospace"
     "git-delta"
+    "neovim"
 )
 
 
 declare -A DOTFILES_MAP
-DOTFILES_MAP["zed"]="$HOME/.zed"
+
 DOTFILES_MAP["opencode/opencode.json"]="$HOME/.config/opencode/opencode.json"
 DOTFILES_MAP["claude/settings.json"]="$HOME/.claude/settings.json"
 DOTFILES_MAP["pi/settings.json"]="$HOME/.pi/agent/settings.json"
-DOTFILES_MAP["nvim"]="$HOME/.config/nvim"
-DOTFILES_MAP["alacritty.toml"]="$HOME/.config/alacritty/alacritty.toml"
+DOTFILES_MAP["nvim/*"]="$HOME/.config/nvim"
+DOTFILES_MAP["ghostty.config"]="$HOME/.config/ghostty/config"
 DOTFILES_MAP["zsh/rc"]="$HOME/.zshrc"
 DOTFILES_MAP["zsh/env"]="$HOME/.zsh_env"
 DOTFILES_MAP["zsh/aliases"]="$HOME/.zsh_aliases"
 DOTFILES_MAP[".tmux.conf"]="$HOME/.tmux.conf"
 DOTFILES_MAP[".gitconfig"]="$HOME/.gitconfig"
-DOTFILES_MAP[".lynx.cfg"]="$HOME/.lynx.cfg"
-DOTFILES_MAP[".lynx.lss"]="$HOME/.lynx.lss"
-# AeroSpace config is version-controlled on every machine; only macOS
-# actually consumes it, but keeping the symlink cross-platform is harmless
-# and means the file stays in sync if you ever edit it from Linux.
-DOTFILES_MAP[".aerospace.toml"]="$HOME/.aerospace.toml"
+DOTFILES_MAP["lazygit.yml"]="$HOME/.config/lazygit/config.yml"
 DOTFILES_MAP["scripts"]="$HOME/"
 
 
@@ -61,10 +57,13 @@ is_macos() {
     [[ "$(uname)" == "Darwin" ]]
 }
 
-# On Linux systems we also manage the i3wm config.
+# Environment-specific configs
 if ! is_macos; then
     DOTFILES_MAP["i3/config"]="$HOME/.config/i3/config"
     DOTFILES_MAP["i3/i3status"]="$HOME/.config/i3status/config"
+
+else; then
+    DOTFILES_MAP[".aerospace.toml"]="$HOME/.aerospace.toml"
 fi
 
 get_pkg_manager() {
@@ -156,12 +155,12 @@ main() {
     fi
 
     echo "preparing environment to symlink dotfiles"
-    mkdir -p "$HOME/.config/zed/"
     mkdir -p "$HOME/.config/opencode/"
     mkdir -p "$HOME/.claude/"
     mkdir -p "$HOME/.pi/agent/"
     mkdir -p "$HOME/.config/nvim/"
-    mkdir -p "$HOME/.config/alacritty/"
+    mkdir -p "$HOME/.config/ghostty/"
+    mkdir -p "$HOME/.config/lazygit/"
     if ! is_macos; then
         mkdir -p "$HOME/.config/i3/"
         mkdir -p "$HOME/.config/i3status/"

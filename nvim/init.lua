@@ -45,7 +45,8 @@ vim.keymap.set("n", "<Leader>rs", vim.lsp.buf.rename, opts)
 vim.keymap.set("n", "<Leader>dn", vim.diagnostic.goto_next, opts)
 vim.keymap.set("n", "<Leader>dp", vim.diagnostic.goto_prev, opts)
 
-vim.keymap.set('n', '<leader>cc', '<cmd>ClaudeCode<CR>', { desc = 'Toggle Claude Code' })
+vim.keymap.set('n', '<leader>gn', "<cmd>Gitsigns next_hunk<cr>", { desc = 'Next git hunk changed in file' })
+vim.keymap.set('n', '<leader>gp', "<cmd>Gitsigns prev_hunk<cr>", { desc = 'Previous git hunk changed in file' })
 
 vim.lsp.config("*", {
     root_markers = { '.git' },
